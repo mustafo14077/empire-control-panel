@@ -2,1034 +2,123 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>X GROUP — Империя управления</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1422">
+  <title>LAST CHANCE: X GROUP</title>
   <style>
-    :root {
-      --bg: #07131d;
-      --bg2: #0d1d2d;
-      --panel: #122234;
-      --panel2: #172b3d;
-      --line: #2d4668;
-      --text: #edf6ff;
-      --muted: #a3b7d0;
-      --blue: #5a8cff;
-      --teal: #2ed5c0;
-      --green: #3ad29a;
-      --amber: #f7b63c;
-      --red: #f0718b;
-      --purple: #ae8dff;
-      --shadow: rgba(5,12,23,0.52);
-    }
-
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background:
-        radial-gradient(circle at top, rgba(90,140,255,0.16), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(46,213,192,0.12), transparent 24%),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    body { min-height: 100vh; }
-    button {
-      font: inherit;
-      cursor: pointer;
-      border: 0;
-      border-radius: 14px;
-      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
-    }
-    button:hover { transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
-
-    .app {
-      display: grid;
-      grid-template-columns: 270px 1fr;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      background: linear-gradient(180deg, rgba(14,22,34,0.96), rgba(9,18,29,0.98));
-      border-right: 1px solid var(--line);
-      padding: 20px 18px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 12px 10px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-    }
-    .brandmark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--teal));
-      font-weight: 900;
-      color: white;
-      box-shadow: 0 12px 26px rgba(90,140,255,0.35);
-    }
-    .brand b {
-      font-size: 15px;
-      letter-spacing: .08em;
-    }
-    .brand small {
-      display: block;
-      color: var(--muted);
-      letter-spacing: .13em;
-      font-size: 9px;
-      margin-top: 5px;
-    }
-
-    .navgroup { display: flex; flex-direction: column; gap: 10px; }
-    .navgroup > small {
-      padding: 0 8px;
-      color: var(--muted);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      font-size: 10px;
-    }
-    .nav {
-      display: grid;
-      gap: 6px;
-    }
-    .tab-button {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid transparent;
-      outline: none;
-      text-align: left;
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-weight: 700;
-    }
-    .tab-button.active {
-      color: var(--text);
-      background: rgba(90,140,255,0.12);
-      border-color: rgba(90,140,255,0.42);
-      box-shadow: inset 0 0 0 1px rgba(90,140,255,0.1);
-    }
-    .tab-button:hover {
-      background: rgba(255,255,255,0.02);
-      color: var(--text);
-    }
-
-    .profile {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 10px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: rgba(255,255,255,0.02);
-    }
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--amber), var(--red));
-      color: #fff;
-    }
-    .profile small {
-      display: block;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .main {
-      padding: 22px 26px 36px;
-    }
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--line);
-    }
-    .crumb {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-size: 11px;
-      font-weight: 700;
-    }
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    .pill strong { color: var(--text); }
-    .primary, .secondary, .ghost {
-      padding: 10px 16px;
-      font-weight: 700;
-      border-radius: 12px;
-    }
-    .primary {
-      background: linear-gradient(135deg, var(--blue), var(--teal));
-      color: white;
-      box-shadow: 0 16px 30px rgba(90,140,255,0.24);
-    }
-    .secondary, .ghost {
-      color: var(--text);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-    }
-
-    .panel {
-      display: none;
-      gap: 18px;
-    }
-    .panel.active { display: grid; }
-
-    .hero {
-      background: linear-gradient(135deg, rgba(90,140,255,0.12), rgba(46,213,192,0.06));
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 24px 22px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 18px;
-    }
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--teal);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: 11px;
-      font-weight: 800;
-    }
-    h1, h2, h3, p { margin: 0; }
-    .hero h1 {
-      font-size: clamp(28px, 3vw, 42px);
-      letter-spacing: -.05em;
-    }
-    .status-box {
-      min-width: 170px;
-      padding: 12px 14px;
-      border: 1px solid rgba(46,213,192,0.35);
-      border-radius: 14px;
-      background: rgba(46,213,192,0.07);
-    }
-    .status-box span {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-    }
-    .status-box strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 28px;
-      letter-spacing: -.05em;
-    }
-
-    .kpis {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(180px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(18,29,45,0.96), rgba(18,29,45,0.9));
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: 0 18px 34px var(--shadow);
-      padding: 18px 16px;
-    }
-    .klabel {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .kvalue {
-      font-size: clamp(22px, 2vw, 34px);
-      letter-spacing: -.05em;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .detail {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 18px;
-    }
-    .list { display: grid; gap: 10px; }
-    .action {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      color: var(--text);
-      padding: 12px 14px;
-      text-align: left;
-    }
-    .action strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
-    }
-    .action span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
-    }
-    .action .cost {
-      color: var(--amber);
-      font-weight: 800;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
-    }
-    .mini-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-    }
-    .mini-card .label {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      margin-bottom: 10px;
-    }
-    .mini-card .value {
-      font-weight: 800;
-      font-size: 24px;
-      letter-spacing: -.05em;
-    }
-    .market-list,
-    .log-list,
-    .info-row { list-style: none; margin: 0; padding: 0; }
-    .market-list li,
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .market-list li:last-child, .info-row:last-child { border-bottom: none; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px 9px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .good { background: rgba(58,210,154,0.08); color: var(--green); }
-    .neutral { background: rgba(247,182,60,0.08); color: var(--amber); }
-    .bad { background: rgba(240,113,139,0.08); color: var(--red); }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 18px;
-    }
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .table th, .table td {
-      padding: 12px 10px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 13px;
-    }
-    .table th {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--muted);
-      font-weight: 800;
-    }
-    .trend {
-      display: inline-flex;
-      padding: 5px 8px;
-      background: rgba(90,140,255,0.1);
-      color: var(--text);
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-    .bar {
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 190px;
-      padding: 14px 8px 6px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.015);
-    }
-    .bar-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 8px;
-      height: 100%;
-    }
-    .bar-visual {
-      width: 100%;
-      max-width: 36px;
-      min-height: 18px;
-      border-radius: 10px 10px 4px 4px;
-      background: linear-gradient(180deg, var(--teal), var(--blue));
-      box-shadow: 0 10px 16px rgba(90,140,255,0.2);
-    }
-    .bar-value, .bar-label {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .log-list {
-      display: grid;
-      gap: 8px;
-      max-height: 480px;
-      overflow: auto;
-      padding-right: 4px;
-    }
-    .log-list li {
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-    .log-list strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-    .log-list span {
-      display: block;
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 13px;
-    }
-
-    @media (max-width: 1100px) {
-      .app { grid-template-columns: 1fr; }
-      .sidebar { border-right: none; border-bottom: 1px solid var(--line); }
-      .kpis, .grid-3, .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 720px) {
-      .main { padding: 18px 14px 28px; }
-      .kpis, .grid-3, .two-col, .mini-grid { grid-template-columns: 1fr; }
-      .topbar, .hero { flex-direction: column; align-items: flex-start; }
-    }
+    :root{color-scheme:dark;--bg:#0b1422;--panel:#111f31;--panel2:#17283c;--line:#263a51;--text:#edf3fb;--muted:#91a4ba;--blue:#77a7ff;--teal:#57d6c1;--gold:#edc47a;--red:#f0808b;--green:#72d6a5;--shadow:0 16px 42px #050b1370}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#1d3552 0,transparent 42%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}.app{min-height:100vh;display:grid;grid-template-columns:248px minmax(0,1fr)}aside{border-right:1px solid var(--line);background:#0b1422eF;padding:22px 16px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;gap:12px;align-items:center;padding:8px}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#799cff,#53d7bd);display:grid;place-items:center;color:#071321;font-weight:900;font-size:23px}.brand strong{letter-spacing:.1em}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em}.navgroup small,.eyebrow{color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:800}.navgroup{display:grid;gap:9px}.nav{display:grid;gap:5px}.tab{border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 12px;border-radius:11px;text-align:left;font-weight:700}.tab:hover,.tab.active{color:var(--text);background:#263b573f;border-color:#446184}.usercard{margin-top:auto;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;gap:11px;align-items:center}.avatar{width:36px;height:36px;border-radius:12px;background:#a87855;display:grid;place-items:center;font-weight:800}.usercard small{display:block;color:var(--muted)}main{min-width:0;padding:24px clamp(14px,3vw,38px) 48px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:22px}.crumb{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pill,.button{border:1px solid var(--line);background:#ffffff08;border-radius:10px;padding:9px 12px}.pill{border-radius:99px;color:var(--muted);font-size:12px}.pill b{color:var(--text)}.button{font-weight:700}.button:hover{border-color:#6382a6;background:#ffffff10}.button.primary{border:0;background:linear-gradient(120deg,#7098ff,#43cdb5);color:#071321}.button.danger{color:var(--red)}.panel{display:none;gap:16px}.panel.active{display:grid}.hero{padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(120deg,#253b59aa,#153b3a55);display:flex;justify-content:space-between;align-items:end;gap:18px}.hero h1{font-size:clamp(25px,3vw,38px);letter-spacing:-.045em;line-height:1.15;margin:7px 0}.hero p{color:var(--muted);max-width:680px;margin:6px 0 0}.stamp{border:1px solid #57d6c155;background:#57d6c10d;border-radius:13px;padding:12px;min-width:160px}.stamp small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.stamp b{font-size:19px;display:block;margin-top:3px}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card{background:linear-gradient(155deg,#142438,#101c2c);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow);min-width:0}.label{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:800;margin-bottom:10px}.value{font-size:clamp(20px,2.2vw,29px);font-weight:800;letter-spacing:-.04em}.hint{font-size:12px;color:var(--muted);margin-top:7px}.grid2{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.section-title h2,.card h2{font-size:17px;letter-spacing:-.02em;margin:0}.section-title p{color:var(--muted);font-size:12px;margin:3px 0 0}.list{display:grid;gap:9px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 12px;border:1px solid #ffffff0e;background:#ffffff05;border-radius:11px}.row strong{display:block}.row small{color:var(--muted);display:block;margin-top:3px}.badge{display:inline-flex;border:1px solid #ffffff1a;border-radius:99px;padding:4px 8px;color:var(--teal);font-size:10px;font-weight:800;white-space:nowrap}.badge.gold{color:var(--gold)}.badge.gray{color:var(--muted)}.badge.red{color:var(--red)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #ffffff0d;font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.1em}td{vertical-align:top}.small{color:var(--muted);font-size:12px}.note{border-left:3px solid var(--gold);padding:10px 12px;color:var(--muted);background:#edc47a0a;border-radius:0 9px 9px 0;font-size:12px}.note strong{color:var(--text)}.empty{padding:22px;text-align:center;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{color:var(--muted);font-size:11px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#0c1725;color:var(--text);border-radius:9px;padding:10px}.field textarea{min-height:74px;resize:vertical}.modal-backdrop{position:fixed;inset:0;background:#03070bc9;display:none;place-items:center;padding:16px;z-index:5}.modal-backdrop.open{display:grid}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#111f31;border:1px solid #38516d;border-radius:18px;padding:20px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;gap:15px;margin-bottom:16px}.modal-head h2{font-size:19px;margin:0}.close{background:transparent;border:0;color:var(--muted);font-size:22px}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}.timeline{display:grid;gap:9px}.event{padding:12px;border-left:2px solid #57d6c1;border-radius:0 10px 10px 0;background:#ffffff06}.event time{color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.08em}.event strong{display:block;margin:4px 0}.event p{color:var(--muted);margin:0;font-size:12px}.footer-note{margin-top:16px;color:var(--muted);font-size:11px}.mobile-nav{display:none}
+    @media(max-width:1000px){.app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:12px 14px;gap:10px}.brand{padding:3px 8px}.navgroup small,.usercard{display:none}.nav{display:flex;overflow:auto;gap:5px}.tab{white-space:nowrap;padding:8px 10px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){main{padding:15px 12px 30px}.grid2,.grid3,.kpis{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column;padding:19px}.topbar{align-items:flex-start}.top-actions{width:100%}.top-actions .button{flex:1}.pill{flex:1;text-align:center}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.card{padding:14px}.tab{font-size:12px}}
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brandmark">X</div>
-        <div>
-          <b>X GROUP</b>
-          <small>Империя</small>
-        </div>
-      </div>
-
-      <div class="navgroup">
-        <small>Панель</small>
-        <div class="nav">
-          <button class="tab-button active" data-tab="overview">◈ Обзор</button>
-          <button class="tab-button" data-tab="empire">▣ Империя</button>
-          <button class="tab-button" data-tab="finance">◍ Финансы</button>
-          <button class="tab-button" data-tab="strategy">✦ Стратегия</button>
-          <button class="tab-button" data-tab="log">≋ Хронология</button>
-        </div>
-      </div>
-
-      <div class="profile">
-        <div class="avatar">М</div>
-        <div>
-          <b>Мустафо</b>
-          <small>CEO · X GROUP</small>
-        </div>
-      </div>
-    </aside>
-
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <div class="crumb">X Group / Управление</div>
-        </div>
-        <div class="top-actions">
-          <div class="pill">Период <strong id="monthLabel">Янв 2034</strong></div>
-          <button class="secondary" id="saveBtn">Сохранить</button>
-          <button class="ghost" id="resetBtn">Сброс</button>
-          <button class="primary" id="nextTurnBtn">Следующий месяц</button>
-        </div>
-      </header>
-
-      <div class="content">
-        <section class="panel active" id="overview">
-          <div class="hero">
-            <div>
-              <p class="eyebrow">Симулятор бизнес-империи</p>
-              <h1>Панель управления империей</h1>
-            </div>
-            <div class="status-box">
-              <span>Репутация</span>
-              <strong id="reputationValue">0</strong>
-            </div>
-          </div>
-
-          <div class="kpis">
-            <div class="card">
-              <div class="klabel">Деньги</div>
-              <div class="kvalue" id="moneyValue">$0</div>
-              <div class="detail">Наличные средства на счетах и в обороте.</div>
-            </div>
-            <div class="card">
-              <div class="klabel">Свободный капитал</div>
-              <div class="kvalue" id="freeCashValue">$0</div>
-              <div class="detail">Деньги, доступные для новых инвестиций.</div>
-            </div>
-            <div class="card">
-              <div class="klabel">Доля рынка</div>
-              <div class="kvalue" id="marketShareValue">0%</div>
-              <div class="detail">Положение на рынке и доверие клиентов.</div>
-            </div>
-            <div class="card">
-              <div class="klabel">Долг</div>
-              <div class="kvalue" id="debtValue">$0</div>
-              <div class="detail">Кредиты и обязательства перед банками.</div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="card">
-              <h2 style="margin-bottom: 16px;">Операции</h2>
-              <div class="list" id="actionsList">
-                <button class="action" data-action="openBranch">
-                  <div>
-                    <strong>Открыть новый филиал</strong>
-                    <span>Расширение сети и выход в новые районы.</span>
-                  </div>
-                  <span class="cost">$42 000</span>
-                </button>
-                <button class="action" data-action="hireStaff">
-                  <div>
-                    <strong>Найти менеджеров</strong>
-                    <span>Повышение эффективности и стабильности работы.</span>
-                  </div>
-                  <span class="cost">$18 000</span>
-                </button>
-                <button class="action" data-action="marketing">
-                  <div>
-                    <strong>Запустить рекламную кампанию</strong>
-                    <span>Увеличение узнаваемости и клиентского спроса.</span>
-                  </div>
-                  <span class="cost">$15 000</span>
-                </button>
-                <button class="action" data-action="research">
-                  <div>
-                    <strong>Инвестировать в R&amp;D</strong>
-                    <span>Рост производительности и технологической зрелости.</span>
-                  </div>
-                  <span class="cost">$25 000</span>
-                </button>
-                <button class="action" data-action="logistics">
-                  <div>
-                    <strong>Оптимизировать логистику</strong>
-                    <span>Снижение издержек и ускорение поставок.</span>
-                  </div>
-                  <span class="cost">$30 000</span>
-                </button>
-                <button class="action" data-action="loan">
-                  <div>
-                    <strong>Взять краткосрочный кредит</strong>
-                    <span>Быстрое пополнение оборотного капитала.</span>
-                  </div>
-                  <span class="cost">+$60 000</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="card">
-              <h2 style="margin-bottom: 16px;">Пульс рынка</h2>
-              <div class="mini-grid">
-                <div class="mini-card">
-                  <span class="label">Филиалы</span>
-                  <div class="value" id="branchesValue">0</div>
-                </div>
-                <div class="mini-card">
-                  <span class="label">Сотрудники</span>
-                  <div class="value" id="staffValue">0</div>
-                </div>
-                <div class="mini-card">
-                  <span class="label">Производство</span>
-                  <div class="value" id="productionValue">0</div>
-                </div>
-                <div class="mini-card">
-                  <span class="label">Инновации</span>
-                  <div class="value" id="innovationValue">0</div>
-                </div>
-              </div>
-
-              <div style="margin-top: 18px;">
-                <ul class="market-list">
-                  <li><span>Лояльность клиентов</span><span class="badge neutral" id="loyaltyValue">0%</span></li>
-                  <li><span>Эффективность</span><span class="badge good" id="efficiencyValue">0%</span></li>
-                  <li><span>Темп роста</span><span class="badge good" id="momentumValue">0%</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" id="empire">
-          <div class="card">
-            <h2 style="margin-bottom: 16px;">Состояние империи</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Актив</th>
-                  <th>Значение</th>
-                  <th>Статус</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Филиалы</td>
-                  <td id="tableBranches">0</td>
-                  <td><span class="trend" id="branchesTrend">Стабильно</span></td>
-                </tr>
-                <tr>
-                  <td>Сотрудники</td>
-                  <td id="tableStaff">0</td>
-                  <td><span class="trend" id="staffTrend">Стабильно</span></td>
-                </tr>
-                <tr>
-                  <td>Производство</td>
-                  <td id="tableProduction">0</td>
-                  <td><span class="trend" id="productionTrend">Стабильно</span></td>
-                </tr>
-                <tr>
-                  <td>Технологии</td>
-                  <td id="tableInnovation">0</td>
-                  <td><span class="trend" id="innovationTrend">Стабильно</span></td>
-                </tr>
-                <tr>
-                  <td>Репутация</td>
-                  <td id="tableReputation">0</td>
-                  <td><span class="trend" id="reputationTrend">Стабильно</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="panel" id="finance">
-          <div class="grid-3">
-            <div class="card">
-              <h2 style="margin-bottom: 16px;">Капитал</h2>
-              <div class="mini-grid">
-                <div class="mini-card">
-                  <span class="label">Касса</span>
-                  <div class="value" id="treasuryValue">$0</div>
-                </div>
-                <div class="mini-card">
-                  <span class="label">Прибыль</span>
-                  <div class="value" id="profitValue">$0</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h2 style="margin-bottom: 16px;">Долг и риски</h2>
-              <div class="info-row"><span>Текущий долг</span><strong id="debtInfoValue">$0</strong></div>
-              <div class="info-row"><span>Проценты</span><strong id="interestValue">$0</strong></div>
-              <div class="info-row"><span>Состояние займа</span><strong id="loanHealthValue">Стабильно</strong></div>
-            </div>
-
-            <div class="card">
-              <h2 style="margin-bottom: 16px;">Ключевые метрики</h2>
-              <div class="info-row"><span>Чистый доход</span><strong id="netIncomeValue">$0</strong></div>
-              <div class="info-row"><span>Расходы</span><strong id="expensesValue">$0</strong></div>
-              <div class="info-row"><span>Риск</span><strong id="riskValue">Низкий</strong></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" id="strategy">
-          <div class="card">
-            <h2 style="margin-bottom: 16px;">Динамика роста</h2>
-            <div class="bar" id="chart"></div>
-          </div>
-        </section>
-
-        <section class="panel" id="log">
-          <div class="card">
-            <h2 style="margin-bottom: 16px;">Лента событий</h2>
-            <ul class="log-list" id="logList"></ul>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    const STORAGE_KEY = "xgroup-empire-save-v2";
-
-    const initialState = {
-      money: 220000,
-      debt: 35000,
-      reputation: 42,
-      marketShare: 18,
-      branches: 2,
-      staff: 24,
-      production: 18,
-      innovation: 2,
-      cashFlow: 30000,
-      expenses: 25000,
-      netIncome: 5000,
-      month: 1,
-      year: 2034,
-      history: [
-        { title: "Запуск", text: "X GROUP вышла на рынок с двумя филиалами и сильным намерением расширяться." }
-      ],
-      chart: [18, 22, 25, 31, 35, 41]
-    };
-
-    function clamp(value, min, max) {
-      return Math.min(Math.max(value, min), max);
-    }
-
-    function formatMoney(value) {
-      return "$" + Math.round(value).toLocaleString("en-US");
-    }
-
-    function formatPercent(value) {
-      return Math.round(value) + "%";
-    }
-
-    function formatMonth() {
-      const names = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
-      return `${names[(state.month - 1) % 12]} ${state.year}`;
-    }
-
-    function loadState() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return structuredClone(initialState);
-      try {
-        const parsed = JSON.parse(raw);
-        return { ...structuredClone(initialState), ...parsed, history: parsed.history || structuredClone(initialState.history) };
-      } catch {
-        return structuredClone(initialState);
-      }
-    }
-
-    let state = loadState();
-
-    function addHistory(title, text) {
-      state.history.unshift({ title, text });
-      state.history = state.history.slice(0, 18);
-    }
-
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function getCurrentMetrics() {
-      const revenue = state.branches * 23000 + state.marketShare * 3500 + state.innovation * 8000;
-      const expenses = state.staff * 1200 + state.branches * 3700 + state.debt * 0.03 + state.production * 1400;
-      const net = revenue - expenses;
-      const efficiency = clamp((state.production * 5 + state.staff * 2 + state.innovation * 14) / 2, 18, 96);
-      const loyalty = clamp(state.reputation * 2.7 + state.marketShare * 1.5, 18, 98);
-      const momentum = clamp(state.branches * 10 + state.marketShare * 1.4 + state.innovation * 9, 15, 99);
-      return { revenue, expenses, net, efficiency, loyalty, momentum };
-    }
-
-    function applyAction(type) {
-      const actions = {
-        openBranch() {
-          const cost = 42000;
-          if (state.money < cost) {
-            addHistory("Блокировка", "Недостаточно средств для открытия нового филиала.");
-            return render();
-          }
-          state.money -= cost;
-          state.branches += 1;
-          state.staff += 7;
-          state.marketShare += 3;
-          state.reputation += 2;
-          state.production += 2;
-          addHistory("Расширение", "Открыт новый филиал в развивающемся районе города.");
-        },
-        hireStaff() {
-          const cost = 18000;
-          if (state.money < cost) {
-            addHistory("Блокировка", "Бюджет на найм менеджеров сейчас ограничен.");
-            return render();
-          }
-          state.money -= cost;
-          state.staff += 8;
-          state.production += 2;
-          state.reputation += 1;
-          addHistory("Кадры", "Набрана новая команда управленцев и операционных специалистов.");
-        },
-        marketing() {
-          const cost = 15000;
-          if (state.money < cost) {
-            addHistory("Блокировка", "На маркетинговую кампанию денег пока не хватает.");
-            return render();
-          }
-          state.money -= cost;
-          state.marketShare += 5;
-          state.reputation += 3;
-          addHistory("Маркетинг", "Команда запустила масштабную рекламную кампанию.");
-        },
-        research() {
-          const cost = 25000;
-          if (state.money < cost) {
-            addHistory("Блокировка", "На научные разработки средств недостаточно.");
-            return render();
-          }
-          state.money -= cost;
-          state.innovation += 1;
-          state.production += 4;
-          state.reputation += 2;
-          addHistory("R&D", "Разработаны новые производственные схемы и улучшения процессов.");
-        },
-        logistics() {
-          const cost = 30000;
-          if (state.money < cost) {
-            addHistory("Блокировка", "Логистическая модернизация сейчас не по карману.");
-            return render();
-          }
-          state.money -= cost;
-          state.production += 5;
-          state.reputation += 1;
-          addHistory("Логистика", "Сеть поставок оптимизирована, расходы снижены, скорость выросла.");
-        },
-        loan() {
-          const amount = 60000;
-          state.money += amount;
-          state.debt += amount;
-          state.reputation = Math.max(0, state.reputation - 1);
-          addHistory("Кредит", "Взят краткосрочный кредит для поддержания оборотного капитала.");
-        }
-      };
-
-      if (actions[type]) {
-        actions[type]();
-        saveState();
-        render();
-      }
-    }
-
-    function nextTurn() {
-      const metrics = getCurrentMetrics();
-      const eventRoll = Math.random();
-
-      state.month += 1;
-      if (state.month > 12) {
-        state.month = 1;
-        state.year += 1;
-      }
-
-      state.cashFlow = metrics.net;
-      state.expenses = metrics.expenses;
-      state.netIncome = metrics.net;
-      state.money += metrics.net;
-      state.debt = Math.max(0, state.debt + (state.debt > 0 ? 2500 : 0));
-      state.marketShare = clamp(state.marketShare + (Math.random() > 0.5 ? 2 : -1) + (state.reputation > 45 ? 1 : 0), 4, 85);
-      state.reputation = clamp(state.reputation + (metrics.net > 0 ? 1 : -1) + (state.marketShare > 35 ? 1 : 0), 0, 100);
-
-      if (eventRoll < 0.15) {
-        state.money -= 18000;
-        state.reputation = Math.max(0, state.reputation - 3);
-        addHistory("Экономический спад", "Конъюнктура рынка ухудшилась, расходы выросли и рост замедлился.");
-      } else if (eventRoll < 0.3) {
-        state.money += 36000;
-        state.marketShare += 3;
-        addHistory("Успешный квартал", "Клиенты активизировались, спрос на продукцию вырос и финансовые результаты улучшились.");
-      } else if (eventRoll < 0.45) {
-        state.reputation += 2;
-        state.staff += 3;
-        addHistory("Люди и таланты", "В команду пришли сильные специалисты, снизив операционные риски.");
-      } else if (eventRoll < 0.6) {
-        state.production += 1;
-        state.innovation += 1;
-        addHistory("Технологическая волна", "Производственный цикл стал быстрее благодаря модернизации цепочки.");
-      } else {
-        addHistory("Операционная стабильность", "Команда удержала темп работы, расходы под контролем, а рынок остался устойчивым.");
-      }
-
-      if (state.money > 900000 && state.reputation >= 75 && state.branches >= 8) {
-        addHistory("Победа", "X GROUP достигла доминирующего положения на рынке и стала локальным лидером отрасли.");
-      }
-
-      state.chart.push(Math.max(10, Math.round((state.marketShare + state.reputation) / 2)));
-      state.chart = state.chart.slice(-6);
-
-      saveState();
-      render();
-    }
-
-    function renderChart() {
-      const chartEl = document.getElementById("chart");
-      const max = Math.max(...state.chart, 100);
-      chartEl.innerHTML = state.chart
-        .map((value, index) => {
-          const barHeight = (value / max) * 100;
-          return `
-            <div class="bar-col">
-              <div class="bar-value">${value}</div>
-              <div class="bar-visual" style="height:${barHeight}%"></div>
-              <div class="bar-label">M${index + 1}</div>
-            </div>
-          `;
-        })
-        .join("");
-    }
-
-    function renderLog() {
-      const logEl = document.getElementById("logList");
-      logEl.innerHTML = state.history
-        .map(item => `
-          <li>
-            <div>
-              <strong>${item.title}</strong>
-              <span>${item.text}</span>
-            </div>
-          </li>
-        `)
-        .join("");
-    }
-
-    function render() {
-      const metrics = getCurrentMetrics();
-
-      document.getElementById("monthLabel").textContent = formatMonth();
-      document.getElementById("moneyValue").textContent = formatMoney(state.money);
-      document.getElementById("freeCashValue").textContent = formatMoney(Math.max(0, state.money - state.debt));
-      document.getElementById("marketShareValue").textContent = formatPercent(state.marketShare);
-      document.getElementById("debtValue").textContent = formatMoney(state.debt);
-      document.getElementById("reputationValue").textContent = state.reputation;
-      document.getElementById("branchesValue").textContent = state.branches;
-      document.getElementById("staffValue").textContent = state.staff;
-      document.getElementById("productionValue").textContent = state.production;
-      document.getElementById("innovationValue").textContent = state.innovation;
-      document.getElementById("loyaltyValue").textContent = formatPercent(metrics.loyalty);
-      document.getElementById("efficiencyValue").textContent = formatPercent(metrics.efficiency);
-      document.getElementById("momentumValue").textContent = formatPercent(metrics.momentum);
-
-      document.getElementById("tableBranches").textContent = state.branches;
-      document.getElementById("tableStaff").textContent = state.staff;
-      document.getElementById("tableProduction").textContent = state.production;
-      document.getElementById("tableInnovation").textContent = state.innovation;
-      document.getElementById("tableReputation").textContent = state.reputation;
-
-      document.getElementById("branchesTrend").textContent = state.branches >= 6 ? "Рост" : "Развитие";
-      document.getElementById("staffTrend").textContent = state.staff >= 35 ? "Сильный" : "Баланс";
-      document.getElementById("productionTrend").textContent = state.production >= 20 ? "Высокий" : "Стабильный";
-      document.getElementById("innovationTrend").textContent = state.innovation >= 4 ? "Лидер" : "Растёт";
-      document.getElementById("reputationTrend").textContent = state.reputation >= 60 ? "Элитный" : "Устойчивый";
-
-      document.getElementById("treasuryValue").textContent = formatMoney(state.money);
-      document.getElementById("profitValue").textContent = formatMoney(state.netIncome);
-      document.getElementById("debtInfoValue").textContent = formatMoney(state.debt);
-      document.getElementById("interestValue").textContent = formatMoney(state.debt * 0.03);
-      document.getElementById("loanHealthValue").textContent = state.debt > 150000 ? "Риск" : (state.debt > 60000 ? "Под контролем" : "Стабильно");
-      document.getElementById("netIncomeValue").textContent = formatMoney(metrics.net);
-      document.getElementById("expensesValue").textContent = formatMoney(metrics.expenses);
-      document.getElementById("riskValue").textContent = state.debt > 150000 || state.marketShare < 10 ? "Высокий" : (state.marketShare < 25 ? "Средний" : "Низкий");
-
-      renderChart();
-      renderLog();
-    }
-
-    document.querySelectorAll(".tab-button").forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".tab-button").forEach(b => b.classList.toggle("active", b === button));
-        document.querySelectorAll(".panel").forEach(panel => {
-          panel.classList.toggle("active", panel.id === button.dataset.tab);
-        });
-      });
-    });
-
-    document.querySelectorAll("[data-action]").forEach(button => {
-      button.addEventListener("click", () => applyAction(button.dataset.action));
-    });
-
-    document.getElementById("nextTurnBtn").addEventListener("click", nextTurn);
-    document.getElementById("saveBtn").addEventListener("click", () => {
-      saveState();
-      addHistory("Сохранение", "Текущее состояние империи сохранено в браузере.");
-      render();
-    });
-    document.getElementById("resetBtn").addEventListener("click", () => {
-      if (confirm("Сбросить всю игровую сессию?")) {
-        state = structuredClone(initialState);
-        saveState();
-        render();
-      }
-    });
-
-    render();
-  </script>
+<div class="app">
+  <aside>
+    <div class="brand"><div class="mark">X</div><div><strong>LAST CHANCE</strong><small>X GROUP · SIMULATION</small></div></div>
+    <div class="navgroup"><small>Рабочее пространство</small><nav class="nav" aria-label="Основная навигация">
+      <button class="tab active" data-tab="home">◈ Главная</button><button class="tab" data-tab="companies">▣ Компании</button><button class="tab" data-tab="finance">◍ Финансы</button><button class="tab" data-tab="projects">⌂ Проекты</button><button class="tab" data-tab="people">♙ Люди</button><button class="tab" data-tab="life">♡ Жизнь</button><button class="tab" data-tab="phone">▣ Телефон</button><button class="tab" data-tab="governance">≋ Управление</button>
+    </nav></div>
+    <div class="usercard"><div class="avatar">М</div><div><strong>Мустафо</strong><small>Участник развития X GROUP</small></div></div>
+  </aside>
+  <main>
+    <header class="topbar"><div><div class="crumb">LAST CHANCE / X GROUP / <span id="crumbName">Главная</span></div></div><div class="top-actions"><div class="pill">Игровая дата <b id="dateLabel">—</b></div><button class="button" id="saveBtn">Сохранить</button><button class="button" id="advanceDay">+ 1 день</button><button class="button primary" id="advanceMonth">+ 30 дней</button></div></header>
+    <section class="panel active" id="home">
+      <div class="hero"><div><div class="eyebrow">Симуляция продолжается после финансового ориентира 2032 года</div><h1>LAST CHANCE: X GROUP</h1><p>Управление группой, проектами и личной жизнью. Неизвестные исторические сведения оставлены неизвестными; игровые действия и подтверждённые записи ведутся отдельно.</p></div><div class="stamp"><small>Основа начального баланса</small><b>2032 · ориентир</b></div></div>
+      <div class="kpis"><article class="card"><div class="label">Общий капитал</div><div class="value" id="capitalValue">—</div><div class="hint">Стартовый подтверждённый ориентир</div></article><article class="card"><div class="label">Свободные средства</div><div class="value" id="freeValue">—</div><div class="hint">Операционный пул группы</div></article><article class="card"><div class="label">Инвестиционный бюджет</div><div class="value" id="investmentValue">—</div><div class="hint">Отд��льный целевой пул</div></article><article class="card"><div class="label">Резерв</div><div class="value" id="reserveValue">—</div><div class="hint">Неприкосновенный без особого решения</div></article></div>
+      <div class="grid2"><article class="card"><div class="section-title"><div><h2>Положение группы</h2><p>Подтверждённое основание и ближайшие действия</p></div><span class="badge" id="saveStatus">Сохранено локально</span></div><div class="list"><div class="row"><div><strong>Подтверждённые обязательства</strong><small>По предоставленному канону</small></div><b id="liabilityValue">—</b></div><div class="row"><div><strong>Результаты новых периодов</strong><small>Заполня��тся только записанными транзакциями</small></div><span class="badge gold">Нет подтверждённых записей</span></div><div class="row"><div><strong>Последнее сохранение</strong><small id="lastSaved">—</small></div><button class="button" data-action="export">Экспорт</button></div></div><div class="note" style="margin-top:13px"><strong>Важно.</strong> Модель X CITY ($53 млн выручки, $34,3 млн расходов, $18,7 млн разовой прибыли и около $330 тыс./мес. аренды) — исторический расчётный ориентир, не текущие деньги и не повторный доход.</div></article><article class="card"><div class="section-title"><div><h2>Хронология</h2><p>События и решения не пропадают при смене дня</p></div><button class="button" data-tab-link="life">Все события</button></div><div class="timeline" id="recentEvents"></div></article></div>
+    </section>
+    <section class="panel" id="companies"><article class="card"><div class="section-title"><div><h2>Корпоративная структура</h2><p>Нет выдуманных балансов, контрактов или лицензий</p></div><span class="badge gray" id="companyCount">—</span></div><div class="tablewrap"><table><thead><tr><th>Направление</th><th>Деятельность</th><th>Известные участники / статус</th><th>Исторические финансы</th></tr></thead><tbody id="companyRows"></tbody></table></div><p class="footer-note">Отдельные бюджеты, руководители и показатели можно уточнять по мере поступления канонических сведений. Пустые значения не трактуются как ноль в исторической бухгалтерии.</p></article></section>
+    <section class="panel" id="finance">
+      <div class="hero"><div><div class="eyebrow">Учётный журнал · USD</div><h1>Финансы группы</h1><p>Записывайте только подтверждённые поступления, расходы и решения. Внутренний перевод меняет структуру пулов, но не капитал группы.</p></div></div>
+      <div class="kpis"><article class="card"><div class="label">Капитал / пулы</div><div class="value" id="fCapital">—</div><div class="hint">Свободные + инвестиции + резерв</div></article><article class="card"><div class="label">Выручка за текущий месяц</div><div class="value" id="monthRevenue">$0</div><div class="hint">Только внесённые записи</div></article><article class="card"><div class="label">Расходы за текущий месяц</div><div class="value" id="monthExpenses">$0</div><div class="hint">Только внесённые записи</div></article><article class="card"><div class="label">Прибыль по записям месяца</div><div class="value" id="monthProfit">$0</div><div class="hint">Выручка минус записанные расходы</div></article></div>
+      <div class="grid2"><article class="card"><div class="section-title"><div><h2>Счета и ограничения</h2><p>Начальные суммы канонического ориентира</p></div><button class="button primary" data-action="transaction">+ Записать операцию</button></div><div class="list" id="poolRows"></div></article><article class="card"><h2 style="margin-bottom:13px">Сверка начального баланса</h2><div class="list"><div class="row"><span>Свободные средства</span><b>$29,382,000</b></div><div class="row"><span>Инвестиционный бюджет</span><b>$2,230,000</b></div><div class="row"><span>Неприкосновенный резерв</span><b>$2,000,000</b></div><div class="row"><strong>Итого</strong><strong>$33,612,000</strong></div><div class="row"><span>Подтверждённые обязательства</span><b>$0</b></div></div><p class="footer-note">Нет автоматических зарплат/налогов: ставки, ведомости и операции неизвестны, поэтому сначала занесите подтверждённые данные.</p></article></div>
+      <article class="card"><div class="section-title"><div><h2>Журнал операций</h2><p>Постоянно сохраняется в этом браузере; экспорт доступен в JSON</p></div><button class="button" data-action="export">Резервная копия</button></div><div class="tablewrap"><table><thead><tr><th>Дата</th><th>Компания</th><th>Тип</th><th>Назначение</th><th>Сумма</th><th>Пулы после</th></tr></thead><tbody id="ledgerRows"></tbody></table></div></article>
+    </section>
+    <section class="panel" id="projects"><div class="hero"><div><div class="eyebrow">Недвижимость · строительство · инвестиции</div><h1>Проекты</h1><p>Исторический портфель проектов не детализирован в имеющихся данных. Создание проекта оформляется как план/предложение, расход возникает только после внесения операции.</p></div></div><div class="grid2"><article class="card"><div class="section-title"><div><h2>Реестр проектов</h2><p>Планирование не означает, что финансирование или разрешения получены</p></div><button class="button primary" data-action="project">+ Новый план</button></div><div class="list" id="projectRows"></div></article><article class="card"><h2 style="margin-bottom:12px">Этапы девелопмента</h2><div class="list"><div class="row"><div><strong>1 · Проверка участка</strong><small>Право собственности, рынок, инфраструктура</small></div><span class="badge gray">До решения</span></div><div class="row"><div><strong>2 · Проектирование и разрешения</strong><small>Срок и стоимость определяются документами</small></div><span class="badge gray">До решения</span></div><div class="row"><div><strong>3 · Подряд и строительство</strong><small>Календарный план и платежи по факту</small></div><span class="badge gray">До решения</span></div><div class="row"><div><strong>4 · Продажа или аренда</strong><small>Не признаётся доходом без сделки</small></div><span class="badge gray">До решения</span></div></div></article></div></section>
+    <section class="panel" id="people"><div class="hero"><div><div class="eyebrow">Семья · команда · деловые связи</div><h1>Люди</h1><p>Указываются только известные роли и связи. Возраст, биографии, родство и характеры не дополняются выдуманными фактами.</p></div></div><article class="card"><div class="section-title"><div><h2>Известные персонажи</h2><p>Нажмите «Заметка», чтобы сохранить наблюдение или контекст в истории</p></div><span class="badge gray">Возраст не указан, если не подтверждён</span></div><div class="grid3" id="peopleCards"></div></article><article class="card"><div class="section-title"><div><h2>Деловые контакты · встреча августа 2029</h2><p>Событие с участием 34 человек. Знакомство не является контрактом</p></div><span class="badge gold">34 участника</span></div><div class="grid3" id="contactCards"></div></article></section>
+    <section class="panel" id="life"><div class="hero"><div><div class="eyebrow">Последовательное игровое время</div><h1>Жизнь и хронология</h1><p>Календарная симуляция начинается с 1 января 2033 года как игровое продолжение финансового ориентира 2032-го. Это не утверждение о точной дате последней серии канона.</p></div><button class="button primary" data-action="event">+ Запланировать событие</button></div><div class="grid2"><article class="card"><div class="section-title"><div><h2>Календарь</h2><p>Важные события сохраняются при пропуске времени</p></div><div class="toolbar"><button class="button" id="weekAdvance">+ 7 дней</button><button class="button" id="monthAdvance2">+ 30 дней</button></div></div><div class="row"><div><strong>Текущая дата симуляции</strong><small>Один игровой шаг — один календарный день</small></div><b id="lifeDate">—</b></div><div class="row"><div><strong>Следующий отчётный период</strong><small>Ежемесячная сводка формируется без выдуманной выручки</small></div><span class="badge gold">По календарю</span></div></article><article class="card"><h2 style="margin-bottom:12px">Личные и семейные сюжеты</h2><div class="note">Семья и отношения пока не детализированы источником. Событие можно записать, но система не будет автоматически придумывать свадьбы, детей, возраст или родственные связи.</div><div class="list" style="margin-top:12px"><div class="row"><div><strong>Нурик и Малика</strong><small>Интерес к гостиничному бизнесу и обучению управлению отелями</small></div><span class="badge">Известная линия</span></div><div class="row"><div><strong>Тимур Маматкулов</strong><small>Возможный наставник и знакомый в гостиничной отрасли</small></div><span class="badge gold">Контакт, не договор</span></div></div></article></div><article class="card"><div class="section-title"><div><h2>Полная хронология</h2><p>Канон и игровые записи хранятся с разными метками</p></div><button class="button" data-action="export">Экспорт истории</button></div><div class="timeline" id="eventRows"></div></article></section>
+    <section class="panel" id="phone"><div class="hero"><div><div class="eyebrow">Информационная среда</div><h1>Телефон</h1><p>Локальный прототип приложений: заметки, календарь и новости доступны без выдумки о реальных сообщениях или событиях.</p></div></div><div class="grid3" id="phoneApps"></div><article class="card" id="phoneContent"><h2>Выберите приложение</h2><p class="hint">Содержимое приложений будет показано здесь.</p></article></section>
+    <section class="panel" id="governance"><div class="hero"><div><div class="eyebrow">Совет · документы · контроль</div><h1>Управление</h1><p>Планы и вопросы для рассмотрения. Нет автоматических назначений, лицензий, контрактов и полномочий, которых нет в каноне.</p></div><button class="button primary" data-action="meeting">+ Повестка встречи</button></div><div class="grid2"><article class="card"><div class="section-title"><div><h2>Открытые вопросы</h2><p>Запишите решения, поручения и необходимые подтверждения</p></div><button class="button" data-action="decision">+ Решение</button></div><div class="list" id="decisionRows"></div></article><article class="card"><h2 style="margin-bottom:12px">Контроль целостности</h2><div class="list"><div class="row"><span>Начальный баланс сверяется</span><span class="badge" id="integrityStatus">Проверка</span></div><div class="row"><span>Резервные копии</span><button class="button" data-action="export">Скачать JSON</button></div><div class="row"><span>Импорт сохранения</span><button class="button" data-action="import">Выбрать файл</button></div></div><p class="footer-note">Все записи сохраняются в IndexedDB этого браузера с резервной копией localStorage. Экспортируйте файл для переноса между устройствами.</p></article></div></section>
+  </main>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Форма</h2><button class="close" id="closeModal" aria-label="Закрыть">×</button></div><form id="modalForm"><div id="modalFields" class="formgrid"></div><div class="modal-actions"><button type="button" class="button" id="cancelModal">Отмена</button><button type="submit" class="button primary">Сохранить запись</button></div></form></div></div>
+<input type="file" id="importFile" accept="application/json" hidden>
+<script>
+(() => {
+  'use strict';
+  const DB_NAME='last-chance-xgroup', DB_VERSION=1, STORE='campaign', SAVE_KEY='last-chance-xgroup-backup-v1';
+  const BASELINE={free:29382000,investment:2230000,reserve:2000000,liabilities:0};
+  const companyData=[
+    ['X STROY','Строительство: жильё, коттеджи, коммерческие объекты и международные проекты','Фаррух — один из ключевых руководителей','Отдельные показатели неизвестны'],
+    ['X CLEANING','Уборка и обслуживание коммерческих, жилых и корпоративных объектов','Музаффарбек участвует в развитии и контроле','Отдельные показатели неизвестны'],
+    ['X CATER','Корпоративное питание, мероприятия, кухни, доставка и контракты','Нурик — руководитель; Бахтиёр Саидов — исполнительный директор; Камрон Юлдашев — кухня; Азиза Рахимова — доставка','Отдельные показатели неизвестны'],
+    ['X BITE','Сеть быстрого питания и торговых точек; поставки, производство, доставка','Нурик руководит направлением','Отдельные показатели неизвестны'],
+    ['MARKET','Розничная торговля, ассортимент, поставщики, склады и продажи','Мадина участвует в торговом и поставочном направлении','Отдельные показатели неизвестны'],
+    ['X MEDIA','ТВ, наружная и цифровая реклама, рекламные конструкции и размещения','Руководитель не указан','Отдельные показатели неизвестны'],
+    ['X CONTROL','Контроль, аналитика, автоматизация, IT-системы и внутренний аудит','Сироджиддин участвует в технологическом развитии','Отдельные показатели неизвестны'],
+    ['X CITY','Городские проекты, недвижимость, продажа объектов и долгосрочная аренда','Руководитель не указан','Историческая расчётная модель — спра��очно'],
+    ['X CAPITAL','Инвестиции, управление капиталом, доли и оценка рисков','Руководитель не указан','Отдельные показатели неизвестны'],
+    ['X BANKING','Банковское направление через лицензированных партнёров и юрструктуры','Лицензия X GROUP не заявляется','Отдельные показатели неизвестны'],
+    ['X INTERNATIONAL','Постепенное международное развитие и зарубежные проекты','Реальные проекты/филиалы не подтверждены','Отдельные показатели неизвестны']
+  ];
+  const peopleData=[
+    ['Мустафо','Главный инициатор, стратег и участник развития X GROUP.','Семейные и личные биографические детали не указаны.'],
+    ['Нурилло','Близкий партнёр; переговоры, встречи и развитие проектов.','Возраст и дополнительные сведения неизвестны.'],
+    ['Нурик','Руководит X CATER и X BITE; продолжает обучение на с��оматолога.','Также интересуется гостиничной линией вместе с Маликой.'],
+    ['Музаффарбек ака','Старший брат Мустафо; консультант и критик. Опыт: IT, банк, торговля, бухгалтерия.','Помогает проверять документы, находить ошибки и анализировать бизнес.'],
+    ['Сироджиддин','IT-направление, технологии и цифровые проекты; учится в этой сфере.','Участвует в технологическом развитии X CONTROL.'],
+    ['Умар','Важный персонаж; образование, развитие и будущее бизнеса — сюжетная линия.','Конкретные возраст, образование и роль в бизнесе не установлены.'],
+    ['Малика','Интересуется гостиничным бизнесом вместе с Нуриком.','Связь с другими персонажами и биографические сведения не уточнены.'],
+    ['Фаррух','Один из ключевых руководителей строительного направления X STROY.','Про��ие сведения не указаны.'],
+    ['Бахтиёр Саидов','Исполнительный директор X CATER.','Не смешивать с Бахромом Саидовым из списка контактов.'],
+    ['Камрон Юлдашев','Руководитель кухни X CATER.','Прочие сведения не указаны.'],
+    ['Азиза Рахимова','Отвечает за доставку X CATER.','Прочие сведения не указаны.'],
+    ['Мадина','Участвует в торговом и поставочном направлении MARKET.','Прочие сведения не указаны.']
+  ];
+  const contacts=[['Рустам Каримов','Строительство'],['Бахром Саидов','Инвестиции'],['Камолиддин Рахимов','Торговля'],['Азизбек Норматов','Коммерческая недвижимость'],['Шерзод Абдуллаев','Предпринимательское сообщество'],['Фарход Юсупов','Производство'],['Дониёр Хамидов','IT'],['Тимур Маматкулов','Гостиницы и рестораны · возможный наставник']];
+  const dateStart='2033-01-01';
+  const fresh=()=>({version:1,date:dateStart,pools:{...BASELINE},ledger:[],projects:[],events:[{id:'canon-meeting-2029',date:'2029-08',title:'Встреча LAST CHANCE — 34 участника',description:'Каноническая встреча и деловые знакомства. Контакты не означают полученные контракты или деньги.',kind:'canon'},{id:'baseline-2032',date:'2032',title:'Финансовый ориентир за 2032 год',description:'Общий капитал $33,612,000: свободные $29,382,000, инвестиционный бюджет $2,230,000, резерв $2,000,000; подтверждённые обязательства $0.',kind:'canon'},{id:'sim-start',date:dateStart,title:'Начало игрового продолжения',description:'Симуляция стартовала после финансового ориентира 2032 года. Точная дата последней канонической серии неизвестна.',kind:'system'}],decisions:[],notes:[],monthReports:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+  let state, db;
+  const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const formatDate=s=>{if(!s)return '—';const d=new Date(s+'T12:00:00');return isNaN(d)?s:new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric'}).format(d)};
+  function openDb(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window)){resolve(null);return}const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+  async function load(){try{db=await openDb();if(db){const saved=await new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).get('current');r.onsuccess=()=>res(r.result?.data||null);r.onerror=()=>rej(r.error)});if(saved)return normalize(saved)}}catch(e){console.warn('IndexedDB unavailable; using backup',e)}try{const raw=localStorage.getItem(SAVE_KEY);if(raw)return normalize(JSON.parse(raw))}catch(e){console.warn('Backup unreadable',e)}return fresh()}
+  function normalize(s){const base=fresh();return {...base,...s,pools:{...BASELINE,...s.pools},ledger:Array.isArray(s.ledger)?s.ledger:[],projects:Array.isArray(s.projects)?s.projects:[],events:Array.isArray(s.events)?s.events:base.events,decisions:Array.isArray(s.decisions)?s.decisions:[],notes:Array.isArray(s.notes)?s.notes:[],monthReports:Array.isArray(s.monthReports)?s.monthReports:[]}}
+  async function persist(){state.updatedAt=new Date().toISOString();const serialized=JSON.stringify(state);try{localStorage.setItem(SAVE_KEY,serialized)}catch(e){console.warn('localStorage backup unavailable',e)}try{if(db)await new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({id:'current',data:state});tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}catch(e){console.error('Database save failed',e)}document.getElementById('lastSaved').textContent=new Date(state.updatedAt).toLocaleString('ru-RU');document.getElementById('saveStatus').textContent='Сохранено локально'}
+  function addEvent(title,description,kind='game',date=state.date){state.events.push({id:crypto.randomUUID?.()||String(Date.now()+Math.random()),date,title,description,kind})}
+  function dateObj(){return new Date(state.date+'T12:00:00')}
+  function monthKey(date){return date.slice(0,7)}
+  function monthEntries(key){return state.ledger.filter(x=>x.date.slice(0,7)===key)}
+  function fmtMonth(key){const [y,m]=key.split('-');return new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(new Date(+y,+m-1,1))}
+  function render(){const date=formatDate(state.date);document.getElementById('dateLabel').textContent=date;document.getElementById('lifeDate').textContent=date;document.getElementById('capitalValue').textContent=money(Object.values(state.pools).reduce((a,b)=>a+b,0));document.getElementById('freeValue').textContent=money(state.pools.free);document.getElementById('investmentValue').textContent=money(state.pools.investment);document.getElementById('reserveValue').textContent=money(state.pools.reserve);document.getElementById('liabilityValue').textContent=money(state.pools.liabilities);document.getElementById('fCapital').textContent=money(state.pools.free+state.pools.investment+state.pools.reserve);const m=monthEntries(monthKey(state.date));const rev=m.filter(x=>x.type==='revenue').reduce((n,x)=>n+x.amount,0);const exp=m.filter(x=>x.type==='expense').reduce((n,x)=>n+x.amount,0);document.getElementById('monthRevenue').textContent=money(rev);document.getElementById('monthExpenses').textContent=money(exp);document.getElementById('monthProfit').textContent=money(rev-exp);
+    document.getElementById('companyCount').textContent=`${companyData.length} направлений`;document.getElementById('companyRows').innerHTML=companyData.map(c=>`<tr><td><strong>${esc(c[0])}</strong></td><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${esc(c[3])}${c[0]==='X CITY'?'<br><span class="small">$53m выручка · $34.3m расходы · $18.7m разовая прибыль · ~$330k/мес. аренда (историческая модель, не текущий баланс)</span>':''}</td></tr>`).join('');
+    document.getElementById('peopleCards').innerHTML=peopleData.map(p=>`<article class="card"><div class="section-title"><strong>${esc(p[0])}</strong><span class="badge gray">Возраст не указан</span></div><p class="small">${esc(p[1])}</p><p class="hint">${esc(p[2])}</p><button class="button" style="margin-top:10px" data-note-person="${esc(p[0])}">Добавить заметку</button></article>`).join('');document.getElementById('contactCards').innerHTML=contacts.map(c=>`<article class="card"><strong>${esc(c[0])}</strong><p class="hint">${esc(c[1])}</p><span class="badge gold">Знакомство · без контракта</span></article>`).join('');
+    document.getElementById('poolRows').innerHTML=[['free','Свободные средства','Текущие операции группы'],['investment','Инвестиционный бюджет','Целевые инвестиции; списание только по записи'],['reserve','Неприкосновенный резерв','Нельзя использовать обычной операцией']].map(([k,n,d])=>`<div class="row"><div><strong>${n}</strong><small>${d}</small></div><b>${money(state.pools[k])}</b></div>`).join('');
+    const ledger=[...state.ledger].reverse();document.getElementById('ledgerRows').innerHTML=ledger.length?ledger.map(x=>`<tr><td>${esc(formatDate(x.date))}</td><td>${esc(x.company)}</td><td>${esc({revenue:'Выручка',expense:'Расход',investment:'Инвестиция',asset:'Продажа/покупка актива',transfer:'Внутренний перевод'}[x.type]||x.type)}</td><td>${esc(x.description)}</td><td>${x.type==='expense'||x.type==='asset'&&x.amount<0?'−':'+'}${money(Math.abs(x.amount))}</td><td>${esc(x.poolSnapshot||'—')}</td></tr>`).join(''):'<tr><td colspan="6"><div class="empty">Операций пока нет. Баланс не меняется автоматически.</div></td></tr>';
+    document.getElementById('projectRows').innerHTML=state.projects.length?state.projects.map(p=>`<div class="row"><div><strong>${esc(p.name)}</strong><small>${esc(p.type)} · ${esc(p.location||'Место не указано')} · ${esc(p.description||'')}</small><small>Создан: ${esc(formatDate(p.date))} · Бюджет: ${p.budget?money(p.budget):'не установлен'}</small></div><span class="badge gold">${esc(p.status)}</span></div>`).join(''):'<div class="empty">Нет зарегистрированных проектов. Исторический перечень не был предоставлен.</div>';
+    const sorted=[...state.events].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('eventRows').innerHTML=sorted.map(eventHtml).join('');document.getElementById('recentEvents').innerHTML=sorted.slice(0,4).map(eventHtml).join('');document.getElementById('decisionRows').innerHTML=state.decisions.length?state.decisions.map(d=>`<div class="row"><div><strong>${esc(d.title)}</strong><small>${esc(d.description)} · ${esc(formatDate(d.date))}</small></div><span class="badge ${d.status==='Принято'?'':'gold'}">${esc(d.status)}</span></div>`).join(''):'<div class="empty">Нет решений и поручений.</div>';
+    renderPhone();const cap=state.pools.free+state.pools.investment+state.pools.reserve;document.getElementById('integrityStatus').textContent=Math.abs(cap-33612000)<0.001?'Сверено':'Есть изменения';document.getElementById('integrityStatus').className='badge '+(Math.abs(cap-33612000)<0.001?'':'gold');document.getElementById('lastSaved').textContent=new Date(state.updatedAt).toLocaleString('ru-RU');}
+  function eventHtml(e){return `<div class="event"><time>${esc(e.date)} · ${e.kind==='canon'?'КАНОН':e.kind==='system'?'СИСТЕМА':'ИГРА'}</time><strong>${esc(e.title)}</strong><p>${esc(e.description)}</p></div>`}
+  function renderPhone(){const apps=[['Сообщения','Личные записи и поручения без выдуманных входящих сообщений.'],['Контакты','Известные деловые связи LAST CHANCE.'],['Календарь','Игровые даты и сохранённые события.'],['News','Лента новостей пока пуста: внешние новости не подделываются.'],['YouTube','Внешнее приложение недоступно в автономном прототипе.'],['Instagram','Социальный канал не подключён; кампании не запускаются автоматически.'],['TikTok','Социальный канал не подключён.'],['Tinder','Доступно только для взрослой сюжетной линии; возраст персонажей не установлен, поэтому функция закрыта.']];document.getElementById('phoneApps').innerHTML=apps.map((a,i)=>`<button class="card" style="text-align:left" data-phone="${i}"><div class="label">${['✉','♙','▦','◉','▶','◎','♪','♡'][i]} Приложение</div><strong>${a[0]}</strong><p class="hint">Открыть</p></button>`).join('')}
+  function switchTab(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));const active=document.querySelector(`.tab[data-tab="${id}"]`);document.getElementById('crumbName').textContent=active?active.textContent.replace(/^\S+\s/,''):id;window.scrollTo({top:0,behavior:'smooth'})}
+  const fields={transaction:[['company','Компания','select',companyData.map(c=>c[0])],['type','Тип операции','select',['revenue','expense','investment','asset','transfer']],['amount','Сумма, USD','number'],['pool','Пул списания / назначения','select',['free','investment','reserve']],['description','Основание / назначение','textarea'],['date','Дата записи','date']],project:[['name','Название плана','text'],['type','Тип','select',['Изучение участка','Жилой проект','Коммерческая недвижимость','Ремонт/обслуживание','Инвестиция','Другое']],['location','Город / место (если известно)','text'],['budget','Оценочный бюджет (не списывается)','number'],['description','Что проверить или сделать','textarea']],event:[['title','Событие','text'],['date','Дата','date'],['description','Детали / участники','textarea']],meeting:[['title','Название / повестка','text'],['date','Дата встречи','date'],['description','Участники и вопросы','textarea']],decision:[['title','Решение или поручение','text'],['status','Статус','select',['На рассмотрении','Одобрено','Отклонено']],['description','Обоснование / ответственный','textarea']],note:[['title','Заметка','text'],['description','Наблюдение / контекст','textarea']]};
+  let modalKind='';function showModal(kind,extra=''){modalKind=kind;const cfg=fields[kind];document.getElementById('modalTitle').textContent=({transaction:'Запись финансовой операции',project:'Новый проектный план',event:'Запланировать событие',meeting:'Повестка встречи',decision:'Зафиксировать решение',note:`Заметка · ${extra}`})[kind];document.getElementById('modalFields').innerHTML=cfg.map(([name,label,type,opts])=>{let input;if(type==='select')input=`<select name="${name}" required>${opts.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`;else if(type==='textarea')input=`<textarea name="${name}" required></textarea>`;else input=`<input name="${name}" type="${type}" ${type==='number'?'min="0" step="0.01"':''} ${type==='date'?`value="${state.date}"`:''} required>`;return `<div class="field ${type==='textarea'?'full':''}"><label>${label}</label>${input}</div>`}).join('');if(kind==='transaction'){document.querySelector('[name=type]').addEventListener('change',e=>{document.querySelector('[name=pool]').value=e.target.value==='investment'?'investment':'free'})}document.getElementById('modalBackdrop').classList.add('open')}
+  function closeModal(){document.getElementById('modalBackdrop').classList.remove('open')}
+  async function submitForm(e){e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());if(modalKind==='transaction'){const amount=Number(data.amount);if(!Number.isFinite(amount)||amount<=0)return alert('Укажите положительную сумму.');let type=data.type,pool=data.pool;if(type==='transfer'){const [from,to]=pool.split('→');if(!to){return alert('Для перевода выберите доступный пул списания; назначение укажите в основании. Внутренние переводы сейчас фиксируются как заметка без изменения общей суммы.')}}if(type==='expense'||type==='investment'||type==='asset'){if(pool==='reserve')return alert('Резерв заблокирован для обычных операций.');if(state.pools[pool]<amount)return alert('В выбранном пуле недостаточно подтверждённых средств.');state.pools[pool]-=amount;if(type==='investment'&&pool!=='investment'){state.pools.investment+=amount;state.pools[pool]+=amount;return alert('Для перевода в инвестиционный бюджет используйте запись типа «Внутренний перевод»; сумма группы не меняется.')}}else if(type==='revenue'){state.pools.free+=amount}else if(type==='transfer'){const dest=(data.description.match(/(?:в пул|назначение)\s*:?\s*(free|investment)/i)||[])[1];if(!dest)return alert('Для внутреннего перевода укажите в назначении текст «назначение: free» или «назначение: investment».');if(pool==='reserve'||state.pools[pool]<amount)return alert('Недостаточно доступных средств или выбран резерв.');state.pools[pool]-=amount;state.pools[dest]+=amount}
+      const entry={id:crypto.randomUUID?.()||String(Date.now()),date:data.date,company:data.company,type,amount:type==='asset'?-amount:amount,description:data.description,poolSnapshot:`Свободные ${money(state.pools.free)} · инвестиции ${money(state.pools.investment)} · резерв ${money(state.pools.reserve)}`};state.ledger.push(entry);addEvent('Финансовая операция внесена',`${data.company}: ${type==='revenue'?'поступление':type==='expense'?'расход':type==='transfer'?'внутренний перевод':type==='investment'?'инвестиция':'операция с активом'} ${money(amount)}. Основание: ${data.description}`,'game',data.date)}
+    else if(modalKind==='project'){state.projects.push({...data,id:crypto.randomUUID?.()||String(Date.now()),date:state.date,status:'План · не профинансирован'});addEvent('Создан проектный план',`${data.name}: планирование не означает одобрение бюджета, получение разрешений или начало строительства.`)}
+    else if(modalKind==='event'||modalKind==='meeting'){addEvent(data.title,data.description, 'game',data.date);if(modalKind==='meeting')state.decisions.push({title:`Встреча: ${data.title}`,description:data.description,date:data.date,status:'Запланировано'})}
+    else if(modalKind==='decision'){state.decisions.push({...data,date:state.date});addEvent('Зафиксировано управленческое решение',`${data.title} — ${data.status}. ${data.description}`)}
+    else if(modalKind==='note'){state.notes.push({...data,date:state.date});addEvent(`Заметка: ${data.title}`,data.description)}closeModal();await persist();render()}
+  function advance(days){const previousMonth=monthKey(state.date);const d=dateObj();d.setDate(d.getDate()+days);state.date=d.toISOString().slice(0,10);if(monthKey(state.date)!==previousMonth){const lines=monthEntries(previousMonth),revenue=lines.filter(x=>x.type==='revenue').reduce((n,x)=>n+x.amount,0),expenses=lines.filter(x=>x.type==='expense').reduce((n,x)=>n+x.amount,0);state.monthReports.push({month:previousMonth,revenue,expenses,profit:revenue-expenses,transactions:lines.length});addEvent(`Закрытие месяца · ${fmtMonth(previousMonth)}`,`Записанная выручка: ${money(revenue)}; расходы: ${money(expenses)}; операционный результат по введённым записям: ${money(revenue-expenses)}. Неподтверждённые суммы не оценивались.`)}addEvent(`Прошло ${days} ${days===1?'день':'дней'}`,`Игровая дата: ${formatDate(state.date)}. Автоматические деньги, контракты и события не начислялись.`);persist().then(render)}
+  function exportSave(){const blob=new Blob([JSON.stringify({app:'LAST CHANCE: X GROUP',exportedAt:new Date().toISOString(),save:state},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`last-chance-xgroup-${state.date}.json`;a.click();URL.revokeObjectURL(a.href)}
+  async function importSave(file){try{const parsed=JSON.parse(await file.text());const data=parsed.save||parsed;if(!data.pools||!data.date||!Array.isArray(data.ledger))throw Error('Файл не является сохранением X GROUP');if(!confirm('Импорт заменит текущее локальное сохранение. Продолжить?'))return;state=normalize(data);await persist();render();alert('Сохранение импортировано.')}catch(e){alert('Не удалось импортировать: '+e.message)}}
+  document.addEventListener('click',e=>{const tab=e.target.closest('[data-tab]');if(tab)switchTab(tab.dataset.tab);const link=e.target.closest('[data-tab-link]');if(link)switchTab(link.dataset.tabLink);const action=e.target.closest('[data-action]')?.dataset.action;if(action){if(action==='export')exportSave();else if(action==='import')document.getElementById('importFile').click();else if(action==='transaction')showModal('transaction');else if(action==='project')showModal('project');else if(action==='event')showModal('event');else if(action==='meeting')showModal('meeting');else if(action==='decision')showModal('decision')}const person=e.target.closest('[data-note-person]');if(person){showModal('note',person.dataset.notePerson);document.getElementById('modalFields').insertAdjacentHTML('beforeend',`<input type="hidden" name="person" value="${esc(person.dataset.notePerson)}">`)}const phone=e.target.closest('[data-phone]');if(phone){const i=+phone.dataset.phone;const content=document.getElementById('phoneContent');const apps=[['Сообщения','Здесь будут ваши собственные заметки и поручения. Входящие сообщения не генерируются без сюжетных данных.'],['Контакты',contacts.map(c=>`${c[0]} — ${c[1]}`).join('<br>')],['Календарь',state.events.slice(-8).reverse().map(x=>`${esc(x.date)} — ${esc(x.title)}`).join('<br>')],['News','Лента пуста. Не подключён источник новостей; текущие события не выдумываются.'],['YouTube','Внешнее приложение не подключено в автономной версии.'],['Instagram','Нет подключённого аккаунта или рекламной кампании.'],['TikTok','Нет подключённого аккаунта.'],['Tinder','Закрыто: возраст персонажей не установлен.']];content.innerHTML=`<h2>${apps[i][0]}</h2><p class="hint" style="line-height:1.8;margin-top:10px">${apps[i][1]}</p>`}});
+  document.getElementById('saveBtn').addEventListener('click',()=>persist().then(()=>{document.getElementById('saveStatus').textContent='Сохранено'}));document.getElementById('advanceDay').addEventListener('click',()=>advance(1));document.getElementById('advanceMonth').addEventListener('click',()=>advance(30));document.getElementById('weekAdvance').addEventListener('click',()=>advance(7));document.getElementById('monthAdvance2').addEventListener('click',()=>advance(30));document.getElementById('closeModal').addEventListener('click',closeModal);document.getElementById('cancelModal').addEventListener('click',closeModal);document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});document.getElementById('modalForm').addEventListener('submit',submitForm);document.getElementById('importFile').addEventListener('change',e=>{if(e.target.files[0])importSave(e.target.files[0]);e.target.value=''});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+  (async()=>{state=await load();render();await persist()})();
+})();
+</script>
 </body>
 </html>
