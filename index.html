@@ -3,60 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>X GROUP — Empire Control Panel</title>
+  <title>X GROUP — Империя управления</title>
   <style>
     :root {
-      --bg: #070d18;
-      --bg-soft: #0d1726;
-      --panel: #121d2d;
-      --panel-2: #16273a;
-      --line: #2a3f5c;
-      --text: #edf5ff;
-      --muted: #90a4be;
-      --blue: #4f8cf7;
-      --teal: #2dd4bf;
-      --green: #34d399;
-      --amber: #fbbf24;
-      --red: #fb7185;
-      --purple: #a78bfa;
-      --shadow: rgba(7, 16, 30, 0.55);
+      --bg: #07131d;
+      --bg2: #0d1d2d;
+      --panel: #122234;
+      --panel2: #172b3d;
+      --line: #2d4668;
+      --text: #edf6ff;
+      --muted: #a3b7d0;
+      --blue: #5a8cff;
+      --teal: #2ed5c0;
+      --green: #3ad29a;
+      --amber: #f7b63c;
+      --red: #f0718b;
+      --purple: #ae8dff;
+      --shadow: rgba(5,12,23,0.52);
     }
 
     * { box-sizing: border-box; }
-
     html, body {
       margin: 0;
       min-height: 100%;
-      background: radial-gradient(circle at top, #122030 0%, var(--bg) 35%);
+      background:
+        radial-gradient(circle at top, rgba(90,140,255,0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(46,213,192,0.12), transparent 24%),
+        var(--bg);
       color: var(--text);
       font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-
-    body {
-      min-height: 100vh;
-    }
-
+    body { min-height: 100vh; }
     button {
       font: inherit;
       cursor: pointer;
       border: 0;
-      border-radius: 12px;
-      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      border-radius: 14px;
+      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
     }
-
     button:hover { transform: translateY(-1px); }
     button:active { transform: translateY(0); }
 
     .app {
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 270px 1fr;
       min-height: 100vh;
     }
 
     .sidebar {
-      background: linear-gradient(180deg, rgba(14,22,34,0.96), rgba(11,18,28,0.98));
+      background: linear-gradient(180deg, rgba(14,22,34,0.96), rgba(9,18,29,0.98));
       border-right: 1px solid var(--line);
-      padding: 20px 18px;
+      padding: 20px 18px 18px;
       display: flex;
       flex-direction: column;
       gap: 18px;
@@ -66,78 +63,62 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 10px 10px 12px;
+      padding: 12px 12px 10px;
+      background: rgba(255,255,255,0.02);
       border: 1px solid var(--line);
       border-radius: 16px;
-      background: rgba(255,255,255,0.02);
     }
-
     .brandmark {
       width: 42px;
       height: 42px;
       border-radius: 14px;
-      background: linear-gradient(135deg, var(--blue), var(--teal));
       display: grid;
       place-items: center;
-      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      font-weight: 900;
       color: white;
-      box-shadow: 0 12px 26px rgba(79, 140, 247, 0.45);
+      box-shadow: 0 12px 26px rgba(90,140,255,0.35);
     }
-
+    .brand b {
+      font-size: 15px;
+      letter-spacing: .08em;
+    }
     .brand small {
       display: block;
       color: var(--muted);
-      letter-spacing: 0.12em;
-      font-size: 10px;
-      margin-top: 4px;
+      letter-spacing: .13em;
+      font-size: 9px;
+      margin-top: 5px;
     }
 
-    .brand b {
-      font-size: 15px;
-      letter-spacing: 0.06em;
-    }
-
-    .navgroup {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
+    .navgroup { display: flex; flex-direction: column; gap: 10px; }
     .navgroup > small {
       padding: 0 8px;
       color: var(--muted);
-      letter-spacing: 0.14em;
-      font-size: 10px;
+      letter-spacing: .15em;
       text-transform: uppercase;
+      font-size: 10px;
     }
-
     .nav {
       display: grid;
       gap: 6px;
     }
-
-    .nav button,
     .tab-button {
       background: transparent;
-      color: var(--text);
+      color: var(--muted);
       border: 1px solid transparent;
+      outline: none;
       text-align: left;
       padding: 10px 12px;
       border-radius: 12px;
-      color: var(--muted);
-      font-weight: 600;
-      opacity: 0.9;
+      font-weight: 700;
     }
-
-    .nav button.active,
     .tab-button.active {
-      background: rgba(79, 140, 247, 0.12);
       color: var(--text);
-      border-color: rgba(79, 140, 247, 0.4);
-      box-shadow: inset 0 0 0 1px rgba(79,140,247,0.2);
+      background: rgba(90,140,255,0.12);
+      border-color: rgba(90,140,255,0.42);
+      box-shadow: inset 0 0 0 1px rgba(90,140,255,0.1);
     }
-
-    .nav button:hover,
     .tab-button:hover {
       background: rgba(255,255,255,0.02);
       color: var(--text);
@@ -150,150 +131,127 @@
       gap: 12px;
       padding: 12px 10px;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 15px;
       background: rgba(255,255,255,0.02);
     }
-
     .avatar {
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--amber), var(--red));
       display: grid;
       place-items: center;
-      font-weight: 700;
-      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--amber), var(--red));
+      color: #fff;
     }
-
     .profile small {
       display: block;
       color: var(--muted);
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     .main {
-      padding: 22px 26px 40px;
+      padding: 22px 26px 36px;
     }
-
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 24px;
+      gap: 16px;
+      margin-bottom: 22px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
     }
-
     .crumb {
       color: var(--muted);
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: .12em;
       font-size: 11px;
+      font-weight: 700;
     }
-
     .top-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
-
     .pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
       padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
       border-radius: 999px;
-      color: var(--muted);
       font-size: 12px;
+      color: var(--muted);
       font-weight: 700;
     }
-
-    .pill strong {
-      color: var(--text);
+    .pill strong { color: var(--text); }
+    .primary, .secondary, .ghost {
+      padding: 10px 16px;
+      font-weight: 700;
+      border-radius: 12px;
     }
-
-    .primary { 
+    .primary {
       background: linear-gradient(135deg, var(--blue), var(--teal));
       color: white;
-      padding: 10px 16px; 
-      font-weight: 700;
-      box-shadow: 0 14px 26px rgba(79, 140, 247, 0.25);
+      box-shadow: 0 16px 30px rgba(90,140,255,0.24);
     }
-
-    .secondary,
-    .ghost {
-      background: rgba(255,255,255,0.03);
+    .secondary, .ghost {
       color: var(--text);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--line);
-      padding: 10px 16px;
-      font-weight: 600;
-    }
-
-    .content {
-      display: block;
     }
 
     .panel {
       display: none;
-      gap: 20px;
+      gap: 18px;
     }
-
-    .panel.active {
-      display: grid;
-    }
+    .panel.active { display: grid; }
 
     .hero {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 20px;
-      background: linear-gradient(135deg, rgba(79, 140, 247, 0.12), rgba(45,212,191,0.06));
+      background: linear-gradient(135deg, rgba(90,140,255,0.12), rgba(46,213,192,0.06));
       border: 1px solid var(--line);
       border-radius: 20px;
-      padding: 26px 22px;
+      padding: 24px 22px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
     }
-
     .eyebrow {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       color: var(--teal);
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
     }
-
     h1, h2, h3, p { margin: 0; }
-
     .hero h1 {
       font-size: clamp(28px, 3vw, 42px);
-      letter-spacing: -0.04em;
+      letter-spacing: -.05em;
     }
-
     .status-box {
-      border: 1px solid rgba(45,212,191,0.35);
-      background: rgba(45,212,191,0.08);
+      min-width: 170px;
+      padding: 12px 14px;
+      border: 1px solid rgba(46,213,192,0.35);
       border-radius: 14px;
-      padding: 10px 14px;
-      min-width: 140px;
+      background: rgba(46,213,192,0.07);
     }
-
     .status-box span {
       display: block;
       color: var(--muted);
       font-size: 11px;
-      letter-spacing: 0.1em;
       text-transform: uppercase;
+      letter-spacing: .12em;
     }
-
     .status-box strong {
       display: block;
-      margin-top: 6px;
-      font-size: 24px;
-      letter-spacing: -0.04em;
+      margin-top: 8px;
+      font-size: 28px;
+      letter-spacing: -.05em;
     }
 
     .kpis {
@@ -301,129 +259,107 @@
       grid-template-columns: repeat(4, minmax(180px, 1fr));
       gap: 16px;
     }
-
     .card {
-      background: linear-gradient(180deg, rgba(18,29,45,0.96), rgba(18,29,45,0.92));
+      background: linear-gradient(180deg, rgba(18,29,45,0.96), rgba(18,29,45,0.9));
       border: 1px solid var(--line);
       border-radius: 18px;
-      box-shadow: 0 18px 35px var(--shadow);
+      box-shadow: 0 18px 34px var(--shadow);
       padding: 18px 16px;
     }
-
     .klabel {
       color: var(--muted);
       font-size: 11px;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       margin-bottom: 12px;
+      font-weight: 700;
     }
-
     .kvalue {
       font-size: clamp(22px, 2vw, 34px);
-      letter-spacing: -0.05em;
+      letter-spacing: -.05em;
       font-weight: 800;
       margin-bottom: 8px;
     }
-
     .detail {
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     .two-col {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.25fr .75fr;
       gap: 18px;
     }
-
-    .list {
-      display: grid;
-      gap: 10px;
-    }
-
+    .list { display: grid; gap: 10px; }
     .action {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--line);
+      border-radius: 14px;
       color: var(--text);
       padding: 12px 14px;
-      border-radius: 12px;
       text-align: left;
     }
-
     .action strong {
       display: block;
-      font-size: 14px;
       margin-bottom: 4px;
+      font-size: 14px;
     }
-
     .action span {
+      display: block;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.4;
     }
-
     .action .cost {
       color: var(--amber);
       font-weight: 800;
       font-size: 12px;
+      white-space: nowrap;
     }
 
     .mini-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 12px;
     }
-
     .mini-card {
+      background: rgba(255,255,255,0.02);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px;
-      background: rgba(255,255,255,0.02);
     }
-
     .mini-card .label {
       display: block;
       color: var(--muted);
       font-size: 10px;
-      letter-spacing: 0.12em;
       text-transform: uppercase;
+      letter-spacing: .12em;
       margin-bottom: 10px;
     }
-
     .mini-card .value {
-      font-size: 24px;
       font-weight: 800;
-      letter-spacing: -0.05em;
+      font-size: 24px;
+      letter-spacing: -.05em;
     }
-
-    ul, li {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
+    .market-list,
+    .log-list,
+    .info-row { list-style: none; margin: 0; padding: 0; }
     .market-list li,
-    .log-list li,
     .info-row {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-
-    .market-list li:last-child,
-    .log-list li:last-child,
-    .info-row:last-child {
-      border-bottom: 0;
-    }
-
+    .market-list li:last-child, .info-row:last-child { border-bottom: none; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -431,63 +367,54 @@
       padding: 5px 9px;
       border-radius: 999px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       border: 1px solid rgba(255,255,255,0.08);
     }
-
-    .good { color: var(--green); background: rgba(52,211,153,0.08); }
-    .bad { color: var(--red); background: rgba(251,113,133,0.08); }
-    .neutral { color: var(--amber); background: rgba(251,191,36,0.08); }
+    .good { background: rgba(58,210,154,0.08); color: var(--green); }
+    .neutral { background: rgba(247,182,60,0.08); color: var(--amber); }
+    .bad { background: rgba(240,113,139,0.08); color: var(--red); }
 
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 18px;
     }
-
     .table {
       width: 100%;
       border-collapse: collapse;
     }
-
-    .table th,
-    .table td {
+    .table th, .table td {
       padding: 12px 10px;
       text-align: left;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       font-size: 13px;
     }
-
     .table th {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       font-size: 10px;
-      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      font-weight: 800;
     }
-
     .trend {
       display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      font-weight: 700;
+      padding: 5px 8px;
+      background: rgba(90,140,255,0.1);
+      color: var(--text);
       border-radius: 999px;
       font-size: 11px;
-      background: rgba(79,140,247,0.1);
-      color: var(--text);
+      font-weight: 800;
     }
-
     .bar {
       display: flex;
       align-items: flex-end;
-      gap: 8px;
-      height: 180px;
-      padding: 14px 8px 0;
+      gap: 10px;
+      height: 190px;
+      padding: 14px 8px 6px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: rgba(255,255,255,0.015);
     }
-
     .bar-col {
       flex: 1;
       display: flex;
@@ -495,93 +422,59 @@
       justify-content: flex-end;
       align-items: center;
       gap: 8px;
-      min-width: 0;
       height: 100%;
     }
-
     .bar-visual {
       width: 100%;
-      max-width: 34px;
+      max-width: 36px;
+      min-height: 18px;
       border-radius: 10px 10px 4px 4px;
       background: linear-gradient(180deg, var(--teal), var(--blue));
-      min-height: 20px;
-      box-shadow: 0 10px 20px rgba(79, 140, 247, 0.18);
+      box-shadow: 0 10px 16px rgba(90,140,255,0.2);
     }
-
-    .bar-value,
-    .bar-label {
+    .bar-value, .bar-label {
       font-size: 11px;
       color: var(--muted);
     }
 
     .log-list {
       display: grid;
-      gap: 4px;
-      max-height: 440px;
+      gap: 8px;
+      max-height: 480px;
       overflow: auto;
       padding-right: 4px;
     }
-
     .log-list li {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-      border-radius: 12px;
       padding: 12px 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
     }
-
     .log-list strong {
       display: block;
       margin-bottom: 6px;
-      color: var(--text);
       font-size: 12px;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      color: var(--text);
     }
-
     .log-list span {
+      display: block;
       color: var(--muted);
       line-height: 1.5;
       font-size: 13px;
     }
 
-    .muted {
-      color: var(--muted);
-    }
-
     @media (max-width: 1100px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .kpis,
-      .grid-3,
-      .two-col {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .app { grid-template-columns: 1fr; }
+      .sidebar { border-right: none; border-bottom: 1px solid var(--line); }
+      .kpis, .grid-3, .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 720px) {
-      .main {
-        padding: 18px 14px 28px;
-      }
-
-      .kpis,
-      .grid-3,
-      .two-col,
-      .mini-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar,
-      .hero {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .main { padding: 18px 14px 28px; }
+      .kpis, .grid-3, .two-col, .mini-grid { grid-template-columns: 1fr; }
+      .topbar, .hero { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -592,25 +485,25 @@
         <div class="brandmark">X</div>
         <div>
           <b>X GROUP</b>
-          <small>EMPIRE CONTROL</small>
+          <small>Империя</small>
         </div>
       </div>
 
       <div class="navgroup">
-        <small>Workspace</small>
+        <small>Панель</small>
         <div class="nav">
-          <button class="active tab-button" data-tab="overview">◈ Overview</button>
-          <button class="tab-button" data-tab="empire">▣ Empire</button>
-          <button class="tab-button" data-tab="finance">◍ Finance</button>
-          <button class="tab-button" data-tab="strategy">✦ Strategy</button>
-          <button class="tab-button" data-tab="log">≋ Timeline</button>
+          <button class="tab-button active" data-tab="overview">◈ Обзор</button>
+          <button class="tab-button" data-tab="empire">▣ Империя</button>
+          <button class="tab-button" data-tab="finance">◍ Финансы</button>
+          <button class="tab-button" data-tab="strategy">✦ Стратегия</button>
+          <button class="tab-button" data-tab="log">≋ Хронология</button>
         </div>
       </div>
 
       <div class="profile">
-        <div class="avatar">M</div>
+        <div class="avatar">М</div>
         <div>
-          <b>Mustafo</b>
+          <b>Мустафо</b>
           <small>CEO · X GROUP</small>
         </div>
       </div>
@@ -619,12 +512,13 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <div class="crumb">X GROUP / Management</div>
+          <div class="crumb">X Group / Управление</div>
         </div>
         <div class="top-actions">
-          <div class="pill"><span>Month</span><strong id="monthLabel">Q1</strong></div>
-          <button class="secondary" id="saveBtn">Save</button>
-          <button class="primary" id="nextTurnBtn">Next month</button>
+          <div class="pill">Период <strong id="monthLabel">Янв 2034</strong></div>
+          <button class="secondary" id="saveBtn">Сохранить</button>
+          <button class="ghost" id="resetBtn">Сброс</button>
+          <button class="primary" id="nextTurnBtn">Следующий месяц</button>
         </div>
       </header>
 
@@ -632,105 +526,113 @@
         <section class="panel active" id="overview">
           <div class="hero">
             <div>
-              <p class="eyebrow">Business empire simulator</p>
-              <h1>Empire Control Panel</h1>
+              <p class="eyebrow">Симулятор бизнес-империи</p>
+              <h1>Панель управления империей</h1>
             </div>
             <div class="status-box">
-              <span>Reputation</span>
+              <span>Репутация</span>
               <strong id="reputationValue">0</strong>
             </div>
           </div>
 
           <div class="kpis">
             <div class="card">
-              <div class="klabel">Balance</div>
+              <div class="klabel">Деньги</div>
               <div class="kvalue" id="moneyValue">$0</div>
-              <div class="detail">Current treasury available for expansion.</div>
+              <div class="detail">Наличные средства на счетах и в обороте.</div>
             </div>
             <div class="card">
-              <div class="klabel">Cash flow</div>
-              <div class="kvalue" id="cashflowValue">$0</div>
-              <div class="detail">Revenue after operating costs.</div>
+              <div class="klabel">Свободный капитал</div>
+              <div class="kvalue" id="freeCashValue">$0</div>
+              <div class="detail">Деньги, доступные для новых инвестиций.</div>
             </div>
             <div class="card">
-              <div class="klabel">Market share</div>
+              <div class="klabel">Доля рынка</div>
               <div class="kvalue" id="marketShareValue">0%</div>
-              <div class="detail">Consumer confidence and control in the market.</div>
+              <div class="detail">Положение на рынке и доверие клиентов.</div>
             </div>
             <div class="card">
-              <div class="klabel">Debt</div>
+              <div class="klabel">Долг</div>
               <div class="kvalue" id="debtValue">$0</div>
-              <div class="detail">Borrowings and loan obligations.</div>
+              <div class="detail">Кредиты и обязательства перед банками.</div>
             </div>
           </div>
 
           <div class="two-col">
             <div class="card">
-              <h2 style="margin-bottom:16px;">Operations</h2>
+              <h2 style="margin-bottom: 16px;">Операции</h2>
               <div class="list" id="actionsList">
                 <button class="action" data-action="openBranch">
                   <div>
-                    <strong>Open new branch</strong>
-                    <span>Expand the network and deepen the market presence.</span>
+                    <strong>Открыть новый филиал</strong>
+                    <span>Расширение сети и выход в новые районы.</span>
                   </div>
-                  <span class="cost">$35,000</span>
+                  <span class="cost">$42 000</span>
                 </button>
                 <button class="action" data-action="hireStaff">
                   <div>
-                    <strong>Hire managers</strong>
-                    <span>Improve operations and increase business efficiency.</span>
+                    <strong>Найти менеджеров</strong>
+                    <span>Повышение эффективности и стабильности работы.</span>
                   </div>
-                  <span class="cost">$15,000</span>
+                  <span class="cost">$18 000</span>
                 </button>
                 <button class="action" data-action="marketing">
                   <div>
-                    <strong>Launch campaign</strong>
-                    <span>Boost market reach and public trust.</span>
+                    <strong>Запустить рекламную кампанию</strong>
+                    <span>Увеличение узнаваемости и клиентского спроса.</span>
                   </div>
-                  <span class="cost">$12,000</span>
+                  <span class="cost">$15 000</span>
                 </button>
                 <button class="action" data-action="research">
                   <div>
-                    <strong>Invest in innovation</strong>
-                    <span>Increase productivity and unlock higher margins.</span>
+                    <strong>Инвестировать в R&amp;D</strong>
+                    <span>Рост производительности и технологической зрелости.</span>
                   </div>
-                  <span class="cost">$20,000</span>
+                  <span class="cost">$25 000</span>
+                </button>
+                <button class="action" data-action="logistics">
+                  <div>
+                    <strong>Оптимизировать логистику</strong>
+                    <span>Снижение издержек и ускорение поставок.</span>
+                  </div>
+                  <span class="cost">$30 000</span>
                 </button>
                 <button class="action" data-action="loan">
                   <div>
-                    <strong>Take short-term loan</strong>
-                    <span>Inject cash for rapid expansion.</span>
+                    <strong>Взять краткосрочный кредит</strong>
+                    <span>Быстрое пополнение оборотного капитала.</span>
                   </div>
-                  <span class="cost">+$60,000</span>
+                  <span class="cost">+$60 000</span>
                 </button>
               </div>
             </div>
 
             <div class="card">
-              <h2 style="margin-bottom:16px;">Market pulse</h2>
+              <h2 style="margin-bottom: 16px;">Пульс рынка</h2>
               <div class="mini-grid">
                 <div class="mini-card">
-                  <span class="label">Branches</span>
+                  <span class="label">Филиалы</span>
                   <div class="value" id="branchesValue">0</div>
                 </div>
                 <div class="mini-card">
-                  <span class="label">Staff</span>
+                  <span class="label">Сотрудники</span>
                   <div class="value" id="staffValue">0</div>
                 </div>
                 <div class="mini-card">
-                  <span class="label">Production</span>
+                  <span class="label">Производство</span>
                   <div class="value" id="productionValue">0</div>
                 </div>
                 <div class="mini-card">
-                  <span class="label">Innovation</span>
+                  <span class="label">Инновации</span>
                   <div class="value" id="innovationValue">0</div>
                 </div>
               </div>
-              <div style="margin-top:18px;">
-                <ul class="market-list" id="marketList">
-                  <li><span>Customer loyalty</span><span class="badge neutral" id="loyaltyValue">0%</span></li>
-                  <li><span>Operational efficiency</span><span class="badge good" id="efficiencyValue">0%</span></li>
-                  <li><span>Momentum</span><span class="badge good" id="momentumValue">0%</span></li>
+
+              <div style="margin-top: 18px;">
+                <ul class="market-list">
+                  <li><span>Лояльность клиентов</span><span class="badge neutral" id="loyaltyValue">0%</span></li>
+                  <li><span>Эффективность</span><span class="badge good" id="efficiencyValue">0%</span></li>
+                  <li><span>Темп роста</span><span class="badge good" id="momentumValue">0%</span></li>
                 </ul>
               </div>
             </div>
@@ -739,40 +641,40 @@
 
         <section class="panel" id="empire">
           <div class="card">
-            <h2 style="margin-bottom:16px;">Empire overview</h2>
+            <h2 style="margin-bottom: 16px;">Состояние империи</h2>
             <table class="table">
               <thead>
                 <tr>
-                  <th>Asset</th>
-                  <th>Current</th>
-                  <th>Status</th>
+                  <th>Актив</th>
+                  <th>Значение</th>
+                  <th>Статус</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Branches</td>
+                  <td>Филиалы</td>
                   <td id="tableBranches">0</td>
-                  <td><span class="trend" id="branchesTrend">Stable</span></td>
+                  <td><span class="trend" id="branchesTrend">Стабильно</span></td>
                 </tr>
                 <tr>
-                  <td>Employees</td>
+                  <td>Сотрудники</td>
                   <td id="tableStaff">0</td>
-                  <td><span class="trend" id="staffTrend">Stable</span></td>
+                  <td><span class="trend" id="staffTrend">Стабильно</span></td>
                 </tr>
                 <tr>
-                  <td>Production capacity</td>
+                  <td>Производство</td>
                   <td id="tableProduction">0</td>
-                  <td><span class="trend" id="productionTrend">Stable</span></td>
+                  <td><span class="trend" id="productionTrend">Стабильно</span></td>
                 </tr>
                 <tr>
-                  <td>Research index</td>
+                  <td>Технологии</td>
                   <td id="tableInnovation">0</td>
-                  <td><span class="trend" id="innovationTrend">Stable</span></td>
+                  <td><span class="trend" id="innovationTrend">Стабильно</span></td>
                 </tr>
                 <tr>
-                  <td>Reputation score</td>
+                  <td>Репутация</td>
                   <td id="tableReputation">0</td>
-                  <td><span class="trend" id="reputationTrend">Stable</span></td>
+                  <td><span class="trend" id="reputationTrend">Стабильно</span></td>
                 </tr>
               </tbody>
             </table>
@@ -782,43 +684,45 @@
         <section class="panel" id="finance">
           <div class="grid-3">
             <div class="card">
-              <h2 style="margin-bottom:16px;">Capital</h2>
+              <h2 style="margin-bottom: 16px;">Капитал</h2>
               <div class="mini-grid">
                 <div class="mini-card">
-                  <span class="label">Treasury</span>
+                  <span class="label">Касса</span>
                   <div class="value" id="treasuryValue">$0</div>
                 </div>
                 <div class="mini-card">
-                  <span class="label">Profit</span>
+                  <span class="label">Прибыль</span>
                   <div class="value" id="profitValue">$0</div>
                 </div>
               </div>
             </div>
+
             <div class="card">
-              <h2 style="margin-bottom:16px;">Debt control</h2>
-              <div class="info-row"><span>Current debt</span><strong id="debtInfoValue">$0</strong></div>
-              <div class="info-row"><span>Interest</span><strong id="interestValue">$0</strong></div>
-              <div class="info-row"><span>Loan health</span><strong id="loanHealthValue">Stable</strong></div>
+              <h2 style="margin-bottom: 16px;">Долг и риски</h2>
+              <div class="info-row"><span>Текущий долг</span><strong id="debtInfoValue">$0</strong></div>
+              <div class="info-row"><span>Проценты</span><strong id="interestValue">$0</strong></div>
+              <div class="info-row"><span>Состояние займа</span><strong id="loanHealthValue">Стабильно</strong></div>
             </div>
+
             <div class="card">
-              <h2 style="margin-bottom:16px;">Key metrics</h2>
-              <div class="info-row"><span>Net income</span><strong id="netIncomeValue">$0</strong></div>
-              <div class="info-row"><span>Expenses</span><strong id="expensesValue">$0</strong></div>
-              <div class="info-row"><span>Risk</span><strong id="riskValue">Low</strong></div>
+              <h2 style="margin-bottom: 16px;">Ключевые метрики</h2>
+              <div class="info-row"><span>Чистый доход</span><strong id="netIncomeValue">$0</strong></div>
+              <div class="info-row"><span>Расходы</span><strong id="expensesValue">$0</strong></div>
+              <div class="info-row"><span>Риск</span><strong id="riskValue">Низкий</strong></div>
             </div>
           </div>
         </section>
 
         <section class="panel" id="strategy">
           <div class="card">
-            <h2 style="margin-bottom:16px;">Performance chart</h2>
+            <h2 style="margin-bottom: 16px;">Динамика роста</h2>
             <div class="bar" id="chart"></div>
           </div>
         </section>
 
         <section class="panel" id="log">
           <div class="card">
-            <h2 style="margin-bottom:16px;">Timeline</h2>
+            <h2 style="margin-bottom: 16px;">Лента событий</h2>
             <ul class="log-list" id="logList"></ul>
           </div>
         </section>
@@ -827,30 +731,43 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "xgroup-empire-save";
+    const STORAGE_KEY = "xgroup-empire-save-v2";
 
     const initialState = {
-      money: 180000,
-      debt: 25000,
-      reputation: 22,
-      marketShare: 12,
+      money: 220000,
+      debt: 35000,
+      reputation: 42,
+      marketShare: 18,
       branches: 2,
-      staff: 18,
-      production: 12,
-      innovation: 1,
-      cashFlow: 28000,
-      expenses: 22000,
-      netIncome: 6000,
+      staff: 24,
+      production: 18,
+      innovation: 2,
+      cashFlow: 30000,
+      expenses: 25000,
+      netIncome: 5000,
       month: 1,
       year: 2034,
       history: [
-        { title: "Start", text: "X GROUP has entered the market with two active branches and a solid capital base." }
+        { title: "Запуск", text: "X GROUP вышла на рынок с двумя филиалами и сильным намерением расширяться." }
       ],
-      chart: [20, 24, 28, 33, 38, 42]
+      chart: [18, 22, 25, 31, 35, 41]
     };
 
     function clamp(value, min, max) {
       return Math.min(Math.max(value, min), max);
+    }
+
+    function formatMoney(value) {
+      return "$" + Math.round(value).toLocaleString("en-US");
+    }
+
+    function formatPercent(value) {
+      return Math.round(value) + "%";
+    }
+
+    function formatMonth() {
+      const names = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+      return `${names[(state.month - 1) % 12]} ${state.year}`;
     }
 
     function loadState() {
@@ -866,85 +783,93 @@
 
     let state = loadState();
 
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function formatMoney(value) {
-      return "$" + Math.round(value).toLocaleString("en-US");
-    }
-
-    function formatPercent(value) {
-      return Math.round(value) + "%";
-    }
-
-    function formatMonth() {
-      const names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      return `${names[(state.month - 1) % 12]} ${state.year}`;
-    }
-
     function addHistory(title, text) {
       state.history.unshift({ title, text });
       state.history = state.history.slice(0, 18);
     }
 
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function getCurrentMetrics() {
+      const revenue = state.branches * 23000 + state.marketShare * 3500 + state.innovation * 8000;
+      const expenses = state.staff * 1200 + state.branches * 3700 + state.debt * 0.03 + state.production * 1400;
+      const net = revenue - expenses;
+      const efficiency = clamp((state.production * 5 + state.staff * 2 + state.innovation * 14) / 2, 18, 96);
+      const loyalty = clamp(state.reputation * 2.7 + state.marketShare * 1.5, 18, 98);
+      const momentum = clamp(state.branches * 10 + state.marketShare * 1.4 + state.innovation * 9, 15, 99);
+      return { revenue, expenses, net, efficiency, loyalty, momentum };
+    }
+
     function applyAction(type) {
       const actions = {
         openBranch() {
-          const cost = 35000;
+          const cost = 42000;
           if (state.money < cost) {
-            addHistory("Blocked", "Not enough capital to open a new branch.");
+            addHistory("Блокировка", "Недостаточно средств для открытия нового филиала.");
             return render();
           }
           state.money -= cost;
           state.branches += 1;
-          state.staff += 6;
-          state.marketShare += 4;
+          state.staff += 7;
+          state.marketShare += 3;
           state.reputation += 2;
-          state.production += 3;
-          addHistory("Expansion", "One more branch was opened in a new district.");
+          state.production += 2;
+          addHistory("Расширение", "Открыт новый филиал в развивающемся районе города.");
         },
         hireStaff() {
-          const cost = 15000;
+          const cost = 18000;
           if (state.money < cost) {
-            addHistory("Blocked", "The hiring budget is currently insufficient.");
+            addHistory("Блокировка", "Бюджет на найм менеджеров сейчас ограничен.");
             return render();
           }
           state.money -= cost;
           state.staff += 8;
           state.production += 2;
           state.reputation += 1;
-          addHistory("Human capital", "New managers were hired to improve daily operations.");
+          addHistory("Кадры", "Набрана новая команда управленцев и операционных специалистов.");
         },
         marketing() {
-          const cost = 12000;
+          const cost = 15000;
           if (state.money < cost) {
-            addHistory("Blocked", "There is not enough liquidity for a campaign.");
+            addHistory("Блокировка", "На маркетинговую кампанию денег пока не хватает.");
             return render();
           }
           state.money -= cost;
-          state.marketShare += 6;
+          state.marketShare += 5;
           state.reputation += 3;
-          addHistory("Campaign", "A large market campaign improved brand perception and visibility.");
+          addHistory("Маркетинг", "Команда запустила масштабную рекламную кампанию.");
         },
         research() {
-          const cost = 20000;
+          const cost = 25000;
           if (state.money < cost) {
-            addHistory("Blocked", "Innovation budget not available this cycle.");
+            addHistory("Блокировка", "На научные разработки средств недостаточно.");
             return render();
           }
           state.money -= cost;
           state.innovation += 1;
           state.production += 4;
           state.reputation += 2;
-          addHistory("R&D", "The engineering team launched a productivity upgrade.");
+          addHistory("R&D", "Разработаны новые производственные схемы и улучшения процессов.");
+        },
+        logistics() {
+          const cost = 30000;
+          if (state.money < cost) {
+            addHistory("Блокировка", "Логистическая модернизация сейчас не по карману.");
+            return render();
+          }
+          state.money -= cost;
+          state.production += 5;
+          state.reputation += 1;
+          addHistory("Логистика", "Сеть поставок оптимизирована, расходы снижены, скорость выросла.");
         },
         loan() {
           const amount = 60000;
           state.money += amount;
           state.debt += amount;
           state.reputation = Math.max(0, state.reputation - 1);
-          addHistory("Loan", "A short-term credit injection stabilised operations and growth.");
+          addHistory("Кредит", "Взят краткосрочный кредит для поддержания оборотного капитала.");
         }
       };
 
@@ -953,21 +878,6 @@
         saveState();
         render();
       }
-    }
-
-    function getCurrentMetrics() {
-      const revenue = state.branches * 18000 + state.marketShare * 2600 + state.innovation * 5000;
-      const expenses = state.staff * 900 + state.branches * 3200 + state.debt * 0.02 + state.production * 1200;
-      const net = revenue - expenses;
-
-      return {
-        revenue,
-        expenses,
-        net,
-        efficiency: clamp((state.production * 6 + state.staff * 2 + state.innovation * 15) / 2, 20, 95),
-        loyalty: clamp(state.reputation * 3 + state.marketShare * 2, 18, 96),
-        momentum: clamp(state.branches * 10 + state.marketShare * 1.2 + state.innovation * 7, 12, 99)
-      };
     }
 
     function nextTurn() {
@@ -984,32 +894,36 @@
       state.expenses = metrics.expenses;
       state.netIncome = metrics.net;
       state.money += metrics.net;
-      state.debt = Math.max(0, state.debt + (state.debt > 0 ? 2000 : 0));
-      state.marketShare = clamp(state.marketShare + (Math.random() > 0.5 ? 2 : -1) + (state.reputation > 35 ? 1 : 0), 4, 82);
+      state.debt = Math.max(0, state.debt + (state.debt > 0 ? 2500 : 0));
+      state.marketShare = clamp(state.marketShare + (Math.random() > 0.5 ? 2 : -1) + (state.reputation > 45 ? 1 : 0), 4, 85);
       state.reputation = clamp(state.reputation + (metrics.net > 0 ? 1 : -1) + (state.marketShare > 35 ? 1 : 0), 0, 100);
 
-      if (eventRoll < 0.18) {
-        state.money -= 15000;
+      if (eventRoll < 0.15) {
+        state.money -= 18000;
         state.reputation = Math.max(0, state.reputation - 3);
-        addHistory("Market shock", "A temporary downturn caused a short sales dip and extra operational costs.");
-      } else if (eventRoll < 0.36) {
-        state.money += 32000;
+        addHistory("Экономический спад", "Конъюнктура рынка ухудшилась, расходы выросли и рост замедлился.");
+      } else if (eventRoll < 0.3) {
+        state.money += 36000;
         state.marketShare += 3;
-        addHistory("Good quarter", "The franchise network closed a strong quarter with higher customer demand.");
-      } else if (eventRoll < 0.52) {
+        addHistory("Успешный квартал", "Клиенты активизировались, спрос на продукцию вырос и финансовые результаты улучшились.");
+      } else if (eventRoll < 0.45) {
         state.reputation += 2;
         state.staff += 3;
-        addHistory("Talent acquisition", "Key specialists joined the company and improved execution.");
+        addHistory("Люди и таланты", "В команду пришли сильные специалисты, снизив операционные риски.");
+      } else if (eventRoll < 0.6) {
+        state.production += 1;
+        state.innovation += 1;
+        addHistory("Технологическая волна", "Производственный цикл стал быстрее благодаря модернизации цепочки.");
       } else {
-        addHistory("Operations", "Management maintained steady production, costs stayed under control, and the market remained active.");
+        addHistory("Операционная стабильность", "Команда удержала темп работы, расходы под контролем, а рынок остался устойчивым.");
+      }
+
+      if (state.money > 900000 && state.reputation >= 75 && state.branches >= 8) {
+        addHistory("Победа", "X GROUP достигла доминирующего положения на рынке и стала локальным лидером отрасли.");
       }
 
       state.chart.push(Math.max(10, Math.round((state.marketShare + state.reputation) / 2)));
       state.chart = state.chart.slice(-6);
-
-      if (state.money > 700000 && state.reputation >= 65 && state.branches >= 8) {
-        addHistory("Victory", "X GROUP has reached a powerful strategic position and dominates its market sector.");
-      }
 
       saveState();
       render();
@@ -1051,7 +965,7 @@
 
       document.getElementById("monthLabel").textContent = formatMonth();
       document.getElementById("moneyValue").textContent = formatMoney(state.money);
-      document.getElementById("cashflowValue").textContent = formatMoney(state.cashFlow);
+      document.getElementById("freeCashValue").textContent = formatMoney(Math.max(0, state.money - state.debt));
       document.getElementById("marketShareValue").textContent = formatPercent(state.marketShare);
       document.getElementById("debtValue").textContent = formatMoney(state.debt);
       document.getElementById("reputationValue").textContent = state.reputation;
@@ -1069,20 +983,20 @@
       document.getElementById("tableInnovation").textContent = state.innovation;
       document.getElementById("tableReputation").textContent = state.reputation;
 
-      document.getElementById("branchesTrend").textContent = state.branches >= 5 ? "Growing" : "Developing";
-      document.getElementById("staffTrend").textContent = state.staff >= 30 ? "Strong" : "Balanced";
-      document.getElementById("productionTrend").textContent = state.production >= 20 ? "High" : "Stable";
-      document.getElementById("innovationTrend").textContent = state.innovation >= 3 ? "Leading" : "Rising";
-      document.getElementById("reputationTrend").textContent = state.reputation >= 60 ? "Elite" : "Solid";
+      document.getElementById("branchesTrend").textContent = state.branches >= 6 ? "Рост" : "Развитие";
+      document.getElementById("staffTrend").textContent = state.staff >= 35 ? "Сильный" : "Баланс";
+      document.getElementById("productionTrend").textContent = state.production >= 20 ? "Высокий" : "Стабильный";
+      document.getElementById("innovationTrend").textContent = state.innovation >= 4 ? "Лидер" : "Растёт";
+      document.getElementById("reputationTrend").textContent = state.reputation >= 60 ? "Элитный" : "Устойчивый";
 
       document.getElementById("treasuryValue").textContent = formatMoney(state.money);
       document.getElementById("profitValue").textContent = formatMoney(state.netIncome);
       document.getElementById("debtInfoValue").textContent = formatMoney(state.debt);
-      document.getElementById("interestValue").textContent = formatMoney(state.debt * 0.02);
-      document.getElementById("loanHealthValue").textContent = state.debt > 150000 ? "Risky" : (state.debt > 60000 ? "Watch" : "Stable");
+      document.getElementById("interestValue").textContent = formatMoney(state.debt * 0.03);
+      document.getElementById("loanHealthValue").textContent = state.debt > 150000 ? "Риск" : (state.debt > 60000 ? "Под контролем" : "Стабильно");
       document.getElementById("netIncomeValue").textContent = formatMoney(metrics.net);
       document.getElementById("expensesValue").textContent = formatMoney(metrics.expenses);
-      document.getElementById("riskValue").textContent = state.debt > 150000 || state.marketShare < 10 ? "High" : (state.marketShare < 25 ? "Medium" : "Low");
+      document.getElementById("riskValue").textContent = state.debt > 150000 || state.marketShare < 10 ? "Высокий" : (state.marketShare < 25 ? "Средний" : "Низкий");
 
       renderChart();
       renderLog();
@@ -1104,8 +1018,15 @@
     document.getElementById("nextTurnBtn").addEventListener("click", nextTurn);
     document.getElementById("saveBtn").addEventListener("click", () => {
       saveState();
-      addHistory("Saved", "The current game state was stored locally in the browser.");
+      addHistory("Сохранение", "Текущее состояние империи сохранено в браузере.");
       render();
+    });
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      if (confirm("Сбросить всю игровую сессию?")) {
+        state = structuredClone(initialState);
+        saveState();
+        render();
+      }
     });
 
     render();
